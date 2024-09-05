@@ -3,24 +3,44 @@ import { StyleSheet, Text, TextInput, Button, View } from 'react-native';
 // import ButtonGradient from './components/ButtonGradient';
 import React, { useState } from 'react'
 // import { Button } from 'react-native-web';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
+
+  //const url = "https://jsonplaceholder.typicode.com/posts"
+  const url = "https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login"
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [token, setToken] = useState(null)
 
   const onSubmit = async() =>{
-    await AsyncStorage.setItem('token', username)
+    //await AsyncStorage.setItem('token', email)
+    getAPIdata();
+
     if( email === 'matias' && password === '1234' )  {
 
-      // console.log('Loging Ok')
+       console.log('Loging Ok')
     }else{
       console.log('Password Fail')
     }
 
   }
+
+
+
+
+    const [data, setData] = useState(undefined);
+    
+    const getAPIdata = async () => {    
+      const url = "https://jsonplaceholder.typicode.com/posts/1";    
+      let result = await fetch(url);    
+      result = await result.json();
+      setData(result);
+    }
+
+
+
 
   return (
 
@@ -33,6 +53,16 @@ export default function App() {
         <TextInput onChangeText={(value) => setEmail(value)} style={styles.textInput}  placeholder="name@email.com" />
         
         <TextInput onChangeText={(value) => setPassword(value)} style={styles.textInput}  placeholder="Password" />
+
+        {
+          data?
+          
+          <View> 
+            <Text style={styles.subTitle} >Hola  {data.title}</Text>
+          </View>
+          : null
+
+        }
 
         {/* <Text style={styles.forgotpassword} >email: {email}</Text> */}
         
