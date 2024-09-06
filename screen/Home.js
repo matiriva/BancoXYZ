@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable } from 'react-native'
-import { useState } from 'react'
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { useState } from 'react';
 
 export default function Home(){
 
+  const url = "https://2k0ic4z7s5.execute-api.us-east-1.amazonaws.com/default/balance"
+
   useEffect(() =>{
-    getData(url, {email: (email), password: (password)
-    })
+    getData(url)
     .then(data => {
       console.log(data); 
     })
@@ -15,22 +16,17 @@ export default function Home(){
 )
   const loginData = {
     email: 'wilson@topaz.com',
-    password: "3333"
-  };
+    //password: "3333"
+  };  
   
-    const url = "https://2k0ic4z7s5.execute-api.us-east-1.amazonaws.com/default/balance"
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [data, setData] = useState(undefined);
-    const [balance, setBalance] = useState([]);
-
-    const bearer = 'Bearer fake-jwt-token';
+  const [balance, setBalance] = useState([]);
+  const bearer = 'Bearer fake-jwt-token';
 
   async function getData(url = '') {
   
-    setEmail(loginData.email)
-    setPassword(loginData.password)
+    // setEmail(loginData.email)
+    // setPassword(loginData.password)
     // Opciones por defecto estan marcadas con un *
     const response = await fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -51,11 +47,10 @@ export default function Home(){
 
   const onSubmit = async() =>{
 
-    setEmail(loginData.email)
-    setPassword(loginData.password)
+    // setEmail(loginData.email)
+    // setPassword(loginData.password)
 
-    getData(url, {email: (email), password: (password)
-    })
+    getData(url)
     .then(data => {
       setBalance(data)
       console.log(data); 
@@ -65,13 +60,13 @@ export default function Home(){
 return (
   <View style={styles.mainContainer}>
     <View style={styles.container}>
-        <StatusBar style="auto" />
+         <StatusBar style="auto" /> 
           <Text style={styles.subTitle} > Bienvenido {loginData.email} !</Text>
 
                   {
           balance?
           
-          <View style={{ marginTop: 40 }}> 
+          <View testID='ViewTest' style={{ marginTop: 40 }}> 
             <Text style={styles.subTitle} >Balance:  {balance.accountBalance}</Text>
             <Text style={styles.subTitle} >Moneda:  {balance.currency}</Text>
           </View>

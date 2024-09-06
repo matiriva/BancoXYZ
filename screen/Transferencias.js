@@ -6,24 +6,19 @@ import { useState } from 'react'
 
 export default function TransferenciasLista(){
 
+  const url = "https://n0qaa2fx3c.execute-api.us-east-1.amazonaws.com/default/transferList"
+
   useEffect(() =>{
 
-    getData(url, {email: (email), password: (password)
-    })
+    getData(url)
     .then(data => {
       console.log(data); 
     })
   }
 )
 
-    const url = "https://n0qaa2fx3c.execute-api.us-east-1.amazonaws.com/default/transferList"
-
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    //const [data, setData] = useState(undefined);
-    const [Transfers, setTransfers] = useState([]);
-
-    const bearer = 'Bearer fake-jwt-token';
+  const [Transfers, setTransfers] = useState([]);
+  const bearer = 'Bearer fake-jwt-token';
 
   async function getData(url = '') {
   
@@ -67,7 +62,7 @@ return (
             <View style={styles.table}>
                     {Transfers.map((transfer) => {
                         return (
-                        <View style={{ flexDirection: 'row' }} >
+                        <View key={index} style={{ flexDirection: 'row' }} >
                             <Text style={styles.item}>{transfer.value} | </Text>  
                             <Text style={styles.item}>{transfer.date}  | </Text>
                             <Text style={styles.item}>{transfer.currency}  | </Text>
