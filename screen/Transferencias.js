@@ -3,14 +3,10 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { useState } from 'react'
-import { FlatList } from 'react-native-web';
-import { Table, Row, Rows } from 'react-native-table-component';
 
 export default function TransferenciasLista(){
 
   useEffect(() =>{
-
- 
 
     getData(url, {email: (email), password: (password)
     })
@@ -20,12 +16,6 @@ export default function TransferenciasLista(){
   }
 )
 
-  const loginData = {
-    email: 'wilson@topaz.com',
-    password: "3333"
-  };
-  
-  
     const url = "https://n0qaa2fx3c.execute-api.us-east-1.amazonaws.com/default/transferList"
 
     const [email, setEmail] = useState('')
@@ -37,8 +27,6 @@ export default function TransferenciasLista(){
 
   async function getData(url = '') {
   
-    setEmail(loginData.email)
-    setPassword(loginData.password)
     // Opciones por defecto estan marcadas con un *
     const response = await fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -57,37 +45,25 @@ export default function TransferenciasLista(){
     return response.json(); // parses JSON response into native JavaScript objects
   }
 
-
-
-
   const onSubmit = async() =>{
-
-    setEmail(loginData.email)
-    setPassword(loginData.password)
-
-    getData(url, {email: (email), password: (password)
-    })
+    getData(url)
     .then(data => {
       setTransfers(data.transfers)
       console.log(data); 
     })
-         // console.log('Data Token:' + (data));
 
 }
 
-
-
 return (
   <View style={styles.mainContainer}>
-          <Text style={styles.titulo} >  {" > Transferencias"} </Text>
     <View style={styles.container}>
         <StatusBar style="auto" />
-          <Text style={styles.subTitle} > Bienvenido {loginData.email} !</Text>
+          <Text style={styles.subTitle} > Lista de Transferencias</Text>
 
                   {
           Transfers?
 
-          <View style={{ marginTop: 40 }}> 
+          <View style={{ marginTop: 10 }}> 
             <View style={styles.table}>
                     {Transfers.map((transfer) => {
                         return (
@@ -116,13 +92,13 @@ return (
 
 const styles = StyleSheet.create({
   mainContainer: {
-    paddingTop: 40,
+    paddingTop: 10,
     width: '100%',
     flex: 1,
     backgroundColor: '#f1f1f1',
   },
   container: {
-    paddingTop: 100,
+    paddingTop: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -132,7 +108,7 @@ const styles = StyleSheet.create({
   },
   item: {
     
-    fontSize: 10,
+    fontSize: 12,
 
   },
   titulo:{
@@ -155,21 +131,19 @@ const styles = StyleSheet.create({
 
   },
   buttons: {
-    padding: 40,
-    marginTop: 20,
-    width: '45%',
-    height: 20,      
-    borderRadius: 25,
+    
+    marginTop: 40,
+    width: '40%',
+    height: 40,      
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
     color : '#f1f1f1',
     backgroundColor: '#0F4761',
   },
   buttonsText: {
-    fontSize: 20,
-    height: 30,     
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontSize: 14,
+    height: 20,   
     color : '#f1f1f1',
   },
 });

@@ -1,19 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, Pressable, View } from 'react-native';
 import React, { useState } from 'react'
-//import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default Login = ({navigation}) => {
+export default Transferir = ({navigation}) => {
 
-const url = "https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login"
+const url = "https://ofqx4zxgcf.execute-api.us-east-1.amazonaws.com/default/transfer"
   
-// const loginData = {
-//   email: 'wilson@topaz.com',
-//   password: "3333"
-// };
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [cbu, setCBU] = useState('')
+  const [valor, setValor] = useState(0)
+  const [currency, setCurrency] = useState('USD')
+  const [payeerDocument, setPayeerDocument] = useState('12345678900')
+  const [transferDate, setTransferDate] = useState('2024-09-24')
   const [token, setToken] = useState('fake-jwt-token')
   const [data, setData] = useState([]);
 
@@ -40,46 +37,50 @@ async function postData(url = '', data = {}) {
 
   const onSubmit = async() =>{
       
-    postData(url, {email: (email), password: (password)
+    var number = parseFloat(valor);
+
+    postData(url, { value: (number),  currency: (currency), payeerDocument: (payeerDocument), transferDate: (transferDate) 
     })
     .then(data => {
       setData(data);
       console.log(data); 
     })
 
-    if (data.token)
+    if (data)
     {
-      console.log(data.token); 
-      console.log(data.user.email); 
-      
-      navigation.navigate('Home', {name: 'Login'})
+      console.log(data.message); 
     } 
   }
 
   return (
 
     <View style={styles.mainContainer}>
-      <View style={styles.container}>
-        <Text style={styles.titulo} >BancoXYZ</Text>
-        <Text style={styles.subTitle} >Ingrese a su cuenta.!</Text>
+        
+        <Text style={styles.subTitle} >Ingrese Alias o CBU:</Text>
 
-        <TextInput onChangeText={(value) => setEmail(value)} style={styles.textInput}  placeholder="name@email.com" />
-        <TextInput onChangeText={(value) => setPassword(value)} style={styles.textInput}  placeholder="Password"  secureTextEntry={true} />
+      <View style={styles.container}>
+        <TextInput onChangeText={(value) => setCBU(value)} style={styles.textInput}  placeholder="Alias/CBU" />    
+      </View>
+        <Text style={styles.subTitle} >Ingrese Valor a transferir:</Text>
+      <View style={styles.container}>
+        <TextInput onChangeText={(value) => setValor(value)} style={styles.textInput}  placeholder="Valor"  />  
+      </View>
 
         {
           data.message?          
           <View> 
-            <Text style={styles.subTitle} >Error:  {data.message}</Text>
+            <Text style={styles.subTitle} > {data.message}</Text>
           </View>
           : null
         }
-        <Pressable onPress={onSubmit} style={styles.buttons} >
-          <Text style={styles.buttonsText} >Ingresar</Text>
-        </Pressable>     
 
-        <Text style={styles.forgotpassword} > No tengo una cuenta?.</Text>
-        <StatusBar style="auto" />        
-      </View>
+      <View style={styles.container}>
+        <Pressable onPress={onSubmit} style={styles.buttons} >
+          <Text style={styles.buttonsText} >Transferir</Text>
+        </Pressable>    
+      </View> 
+
+        <StatusBar style="auto" />    
     </View>
   );
 
@@ -92,29 +93,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#f1f1f1',
   },
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+     alignItems: 'center',
+     justifyContent: 'center',
   },
-  containerSVG: {
-    width: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    
-  },
+
   titulo:{
     fontSize: 40,
     color: '#0F4761',
     fontWeight: 'bold',
   },
   subTitle: {
+    paddingTop: 10,
+    paddingStart: 40,
     fontSize: 20,
-    color: 'gray',      
+    color: 'gray', 
+    alignItems: 'flex-start',  
+    justifyContent: 'flex-start',   
   },
     textInput: {    
+       alignItems: 'center',
+       justifyContent: 'center',
       padding: 10,
       paddingStart: 30,
       width: '80%',
-      height: 50,
+      height: 40,
       marginTop: 20,
       borderRadius: 30,
       backgroundColor: '#fff',
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '40%',
     height: 40,      
-    borderRadius: 22,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     color : '#f1f1f1',

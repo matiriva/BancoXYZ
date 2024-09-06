@@ -6,9 +6,6 @@ import { useState } from 'react'
 export default function Home(){
 
   useEffect(() =>{
-
- 
-
     getData(url, {email: (email), password: (password)
     })
     .then(data => {
@@ -16,12 +13,10 @@ export default function Home(){
     })
   }
 )
-
   const loginData = {
     email: 'wilson@topaz.com',
     password: "3333"
   };
-  
   
     const url = "https://2k0ic4z7s5.execute-api.us-east-1.amazonaws.com/default/balance"
 
@@ -54,9 +49,6 @@ export default function Home(){
     return response.json(); // parses JSON response into native JavaScript objects
   }
 
-
-
-
   const onSubmit = async() =>{
 
     setEmail(loginData.email)
@@ -68,15 +60,10 @@ export default function Home(){
       setBalance(data)
       console.log(data); 
     })
-         // console.log('Data Token:' + (data));
-
 }
-
-
 
 return (
   <View style={styles.mainContainer}>
-          <Text style={styles.titulo} >  {" > Perfil"} </Text>
     <View style={styles.container}>
         <StatusBar style="auto" />
           <Text style={styles.subTitle} > Bienvenido {loginData.email} !</Text>
@@ -136,21 +123,19 @@ const styles = StyleSheet.create({
     marginTop: 60,     
   },
   buttons: {
-    padding: 40,
+    
     marginTop: 20,
-    width: '45%',
-    height: 20,      
-    borderRadius: 25,
+    width: '40%',
+    height: 40,      
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
     color : '#f1f1f1',
     backgroundColor: '#0F4761',
   },
   buttonsText: {
-    fontSize: 20,
-    height: 30,     
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontSize: 14,
+    height: 20,   
     color : '#f1f1f1',
   },
 });
