@@ -51,6 +51,9 @@ const Login = ({navigation}) => {
   }
 
 
+  useEffect(() =>{
+
+  }, []);
 
     const textInputChange = (val) => {
       setEmail(val);
@@ -123,8 +126,8 @@ const Login = ({navigation}) => {
        {
             if (dataSrv.token) 
                 await AsyncStorage.setItem('token',dataSrv.token)          
-            if (dataSrv.user.email) 
-                await AsyncStorage.setItem('email',dataSrv.user.email)      
+            if (email) 
+                await AsyncStorage.setItem('email',email)      
       
           console.log('token ' + dataSrv.token); 
           console.log('email ' + dataSrv.user.email); 

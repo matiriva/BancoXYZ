@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
-//import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default LogOut = ({navigation}) => {
 
 const [data, setData] = useState([]);
 const logout = () => {
 
-    //AsyncStorage.clear();
+    AsyncStorage.clear();
     setData('')
     navigation.navigate('Login', {call: 'Logout'})
 }
