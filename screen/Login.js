@@ -121,10 +121,10 @@ const Login = ({navigation}) => {
 
        if (!dataSrv.message)
        {
-          await AsyncStorage.setItem('token',dataSrv.token)
-          await AsyncStorage.setItem('email',dataSrv.user.email)
-
-      
+            if (dataSrv.token) 
+                await AsyncStorage.setItem('token',dataSrv.token)          
+            if (dataSrv.user.email) 
+                await AsyncStorage.setItem('email',dataSrv.user.email)      
       
           console.log('token ' + dataSrv.token); 
           console.log('email ' + dataSrv.user.email); 
@@ -133,6 +133,7 @@ const Login = ({navigation}) => {
           console.log('Login Ok'); 
           navigation.navigate('Home', {name: 'Login'})
       }else{
+        console.log('Login Failed'); 
 
       }
 
@@ -247,7 +248,7 @@ const Login = ({navigation}) => {
               dataSrv.message?          
               <View> 
                 <Animatable.View animation="fadeInLeft" duration={500}>
-                    <Text style={styles.errorMsg} >Error:  {dataSrv.message}</Text>
+                    <Text style={styles.errorMsg} > {dataSrv.message}</Text>
                 </Animatable.View>
               </View>
               : null
@@ -256,33 +257,20 @@ const Login = ({navigation}) => {
             <View style={styles.button}>
                 <TouchableOpacity
                     onPress={() => {login_onPress(email, password )}}
-                    style={[styles.signIn, {
-                        borderColor: '#0F4761',
-                        borderWidth: 1,
-                        marginTop: 15
-                    }]}
-                >
-                {/* <LinearGradient
-                    colors={['#f1f1f1', '#f1f1f1']}
-                    style={styles.signIn}
-                > */}
-                <Text style={[styles.textSign, {
-                    color: '#0F4761'
-                }]}>Ingresar</Text>
-                {/* </LinearGradient> */}
+                    style={[styles.signIn, {borderColor: '#0F4761',borderWidth: 1,marginTop: 15}]}>
+                    {/* <LinearGradient
+                        colors={['#f1f1f1', '#f1f1f1']}
+                        style={styles.signIn}
+                    > */}
+                        <Text style={[styles.textSign, { color: '#0F4761'}]}>Ingresar</Text>
+                    {/* </LinearGradient> */}
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Registrarse')}
-                    style={[styles.signIn, {
-                        borderColor: '#0F4761',
-                        borderWidth: 1,
-                        marginTop: 15
-                    }]}
-                >
-                    <Text style={[styles.textSign, {
-                        color: '#0F4761'
-                    }]}>Registrarse</Text>
+                    style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+                   
+                   <Text style={[styles.textSign, { color: '#0F4761'}]}>Registrarse</Text>
                 </TouchableOpacity>
             </View>
         </Animatable.View>
