@@ -138,7 +138,7 @@ const Login = ({navigation}) => {
           navigation.navigate('Home', {name: 'Login'})
       }else{
         console.log('Login Failed'); 
-
+        return;
       }
 
 
