@@ -83,7 +83,7 @@ const Login = ({navigation}) => {
       setsecureTextEntry(!secureTextEntry)
     }
 
-    const login_onPress = async(email, password) =>{
+    const login_onPress = async() =>{
         
       // Alert.alert('Entrada incorrecta!','Email ' + userName +  'Val Email ' + dataVal.email, [{text: 'Aceptar'}]);
       // Alert.alert('Entrada incorrecta!','password ' + password + 'Val password ' + dataVal.password, [{text: 'Aceptar'}]);
@@ -131,7 +131,7 @@ const Login = ({navigation}) => {
                 await AsyncStorage.setItem('email',email)      
       
           console.log('token ' + dataSrv.token); 
-          console.log('email ' + dataSrv.user.email); 
+          console.log('email ' + email); 
           console.log('message ' + dataSrv.message); 
 
           console.log('Login Ok'); 
@@ -260,7 +260,7 @@ const Login = ({navigation}) => {
 
             <View style={styles.button}>
                 <TouchableOpacity
-                    onPress={() => {login_onPress(email, password )}}
+                    onPress={() => {login_onPress()}}
                     style={[styles.signIn, {borderColor: '#0F4761',borderWidth: 1,marginTop: 15}]}>
                     {/* <LinearGradient
                         colors={['#f1f1f1', '#f1f1f1']}
