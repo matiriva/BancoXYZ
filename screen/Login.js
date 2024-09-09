@@ -14,7 +14,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// SCREENS
 
 
 const url = "https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login"
@@ -81,8 +80,7 @@ const Login = ({navigation}) => {
       setsecureTextEntry(!secureTextEntry)
     }
 
-   
-    const login_onPress = (email, password) => {
+    const login_onPress = async(email, password) =>{
         
       // Alert.alert('Entrada incorrecta!','Email ' + userName +  'Val Email ' + dataVal.email, [{text: 'Aceptar'}]);
       // Alert.alert('Entrada incorrecta!','password ' + password + 'Val password ' + dataVal.password, [{text: 'Aceptar'}]);
@@ -124,13 +122,13 @@ const Login = ({navigation}) => {
 
        if (!dataSrv.message)
        {
-         //await AsyncStorage.setItem('token',data.token)
-         //await AsyncStorage.setItem('email',data.username)
+          await AsyncStorage.setItem('token',dataSrv.token)
+          await AsyncStorage.setItem('email',dataSrv.user.email)
 
       
       
           console.log('token ' + dataSrv.token); 
-          console.log('email ' + dataSrv.username); 
+          console.log('email ' + dataSrv.user.email); 
           console.log('message ' + dataSrv.message); 
 
           console.log('Login Ok'); 

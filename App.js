@@ -22,6 +22,8 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState('')
 
+  const [isLoggedIn, setIsLoggedIn] = useState('')
+
   const Stack = createStackNavigator();
 
    useEffect(() => {
@@ -32,12 +34,16 @@ export default function App() {
       try {
         uToken = await AsyncStorage.getItem('token');
         setUserToken(uToken);
+        setIsLoggedIn(false);
       } catch(e) {
         console.log(e);
       }
       // console.log('user token: ', token);
     }, 1000);
   }, []);
+
+  
+
 
   if( isLoading ) {
     return(
@@ -55,7 +61,9 @@ export default function App() {
             headerTintColor: '#0F4761',//'white',
             headerStyle: { backgroundColor: 'white' },
           }}>
-
+  {/* {isLoggedIn ? ( 
+    // Screens for logged in users*/}
+    <Stack.Group>
             <Stack.Screen name="Home" component={Home} 
               options={{
                 headerShown: true,
@@ -77,6 +85,11 @@ export default function App() {
                     <Icon name='list' size={24} color={focused? '#0163d2' : '#0F4761' } />
                   ) 
             }}/>  
+    </Stack.Group>
+  {/* ) : ( 
+            // Auth screens*/}
+            <Stack.Group screenOptions={{ headerShown: false }}>
+
             <Stack.Screen name="LogOut" component={LogOut} 
               options={{
                 headerShown: true,
@@ -88,6 +101,10 @@ export default function App() {
               options={{
                 headerShown: false
                 }} /> 
+
+          </Stack.Group>
+
+        {/* )} */}
 
       </Stack.Navigator>
     </NavigationContainer>
