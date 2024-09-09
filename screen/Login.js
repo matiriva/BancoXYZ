@@ -169,7 +169,7 @@ const Login = ({navigation}) => {
                     color= "#0F4761"
                     size={20}
                 />
-                <TextInput 
+                <TextInput  testID='tiEmail'
                     placeholder="Ingrese su email"
                     placeholderTextColor="#666666"
                     style={[styles.textInput, {
@@ -208,7 +208,7 @@ const Login = ({navigation}) => {
                     color= "black"
                     size={20}
                 />
-                <TextInput 
+                <TextInput testID='tiPassword'
                     placeholder="Ingrese su contraseña"
                     placeholderTextColor="#666666"
                     secureTextEntry={secureTextEntry ? true : false}
