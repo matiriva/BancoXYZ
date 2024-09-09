@@ -108,6 +108,7 @@ return (
 
 
     </View>  
+    <View style={styles.container}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Transferir')}
             style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
@@ -126,6 +127,7 @@ return (
             
             <Text style={[styles.textSign, { color: '#0F4761'}]}>Salir</Text>
         </TouchableOpacity>
+        </View>
   </View>
   )
 
