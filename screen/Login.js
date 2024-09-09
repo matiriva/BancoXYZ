@@ -5,12 +5,7 @@ import React, { useState } from 'react'
 
 export default Login = ({navigation}) => {
 
-const url = "https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login"
-  
-// const loginData = {
-//   email: 'wilson@topaz.com',
-//   password: "3333"
-// };
+  const url = "https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login"
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
