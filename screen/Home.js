@@ -85,17 +85,17 @@ return (
           balance?
           
           <View testID='ViewTest' style={{ marginTop: 40 }}> 
-            <Text style={styles.subTitle} >Balance:  {balance.accountBalance}</Text>
-            <Text style={styles.subTitle} >Moneda:  {balance.currency}</Text>
+            <Text testID='tiBalance' style={styles.subTitle} >Balance:  {balance.accountBalance}</Text>
+            <Text testID='tiMoneda' style={styles.subTitle} >Moneda:  {balance.currency}</Text>
           </View>
           : null
 
         }
-        <TouchableOpacity
+        <TouchableOpacity  testID='tionSubmit' 
             onPress={onSubmit} 
             style={[styles.buttons, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
             
-            <Text style={styles.buttonsText}>Refrescar</Text>
+            <Text testID='tiRefrescar' style={styles.buttonsText}>Refrescar</Text>
         </TouchableOpacity>
 
         {/* <TouchableOpacity

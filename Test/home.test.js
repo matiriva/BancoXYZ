@@ -5,30 +5,30 @@ import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { __getMockPush, __mockReset } from 'expo-router';
 import AsyncStorage, { __resetAllMocks, __getMockStorage } from '../mocks/async-storage'
 
-// Screens
-import Login from '../screen/Login';
-
-// Mock de Alert
-//jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+// SCREENS
+import Home from '../screen/Home';
 
 // CONST
 
 // -----------------------------------------------------
 
-describe('Login', () => {
+describe('Home', () => {
   beforeEach(() => {
     //__mockReset();
     __resetAllMocks();
     jest.clearAllMocks();
   });
 
-  it('Render página Login  ', () => {
-    const { getByTestId } = render(<Login />);
+  it('Render página Home  ', () => {
+    const { getByTestId } = render(<Home />);
     
-    expect(getByTestId('tiEmail')).toBeTruthy();
-    expect(getByTestId('tiPassword')).toBeTruthy();
+    expect(getByTestId('tiBalance')).toBeTruthy();
+    expect(getByTestId('tiMoneda')).toBeTruthy();
   });
 
 });
 
 
+// testID='tionSubmit' 
+
+// testID='tiRefrescar'
