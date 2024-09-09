@@ -15,7 +15,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
 const url = "https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login"
 
 const Login = ({navigation}) => {
@@ -31,7 +30,7 @@ const Login = ({navigation}) => {
   const [isValidUser, setisValidUser] = useState(true)
   const [isValidPassword, setisValidPassword] = useState(true)
 
-  
+
   async function postData(url = '', data = {}) {
 
     const response = await fetch(url, {
@@ -269,7 +268,7 @@ const Login = ({navigation}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    //onPress={() => navigation.navigate('Registrarse')}
+                    onPress={() => navigation.navigate('Registrarse')}
                     style={[styles.signIn, {
                         borderColor: '#0F4761',
                         borderWidth: 1,
@@ -282,7 +281,7 @@ const Login = ({navigation}) => {
                 </TouchableOpacity>
             </View>
         </Animatable.View>
-        <StatusBar style="auto" />        
+        <StatusBar style="auto" />
       </View>
     );
 };

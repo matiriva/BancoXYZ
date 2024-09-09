@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 //import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator }  from '@react-navigation/stack';
+//import { createBottomTabNavigator }  from '@react-navigation/bottom-tabs';
 import Icon from "react-native-vector-icons/Ionicons";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,6 +14,7 @@ import Login from './screen/Login';
 import Home from './screen/Home';
 import TransferenciasLista from './screen/Transferencias';
 import Transferir from './screen/Transferir';
+import Registrarse from './screen/Registrarse';
 
 
 
@@ -25,6 +27,8 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState('')
 
   const Stack = createStackNavigator();
+
+  //const Stack = createBottomTabNavigator();
 
    useEffect(() => {
     setTimeout(async() => {
@@ -61,8 +65,8 @@ export default function App() {
             headerTintColor: '#0F4761',//'white',
             headerStyle: { backgroundColor: 'white' },
           }}>
-  {/* {isLoggedIn ? ( 
-    // Screens for logged in users*/}
+   {/* {isLoggedIn ? ( 
+    // Screens for logged in users */}
     <Stack.Group>
             <Stack.Screen name="Home" component={Home} 
               options={{
@@ -86,8 +90,8 @@ export default function App() {
                   ) 
             }}/>  
     </Stack.Group>
-  {/* ) : ( 
-            // Auth screens*/}
+  {/* //  ) : ( 
+  //           // Auth screens */}
             <Stack.Group screenOptions={{ headerShown: false }}>
 
             <Stack.Screen name="LogOut" component={LogOut} 
@@ -101,10 +105,14 @@ export default function App() {
               options={{
                 headerShown: false
                 }} /> 
+            <Stack.Screen name="Registrarse" component={Registrarse}
+              options={{
+                headerShown: false
+                }} /> 
 
           </Stack.Group>
-
-        {/* )} */}
+{/* 
+        //  )}  */}
 
       </Stack.Navigator>
     </NavigationContainer>
