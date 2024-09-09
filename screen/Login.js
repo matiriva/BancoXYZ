@@ -1,139 +1,361 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, Pressable, View } from 'react-native';
-import React, { useState } from 'react'
-//import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
+import { 
+    View, 
+    Text, 
+    TouchableOpacity, 
+    TextInput,
+    StyleSheet ,
+    StatusBar,
+    Alert,
+    Pressable
+} from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+//import {LinearGradient} from 'expo-linear-gradient';
 
-export default Login = ({navigation}) => {
 
-  const url = "https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login"
+const url = "https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login"
+
+const Login = ({navigation}) => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [token, setToken] = useState('fake-jwt-token')
-  const [data, setData] = useState([]);
+  const [dataSrv, setDataSrv] = useState([]);
 
-  const bearer = 'Bearer fake-jwt-token';
+ 
+  const [check_textInputChange, setcheck_textInputChange] = useState(false)
+  const [secureTextEntry, setsecureTextEntry] = useState(true)
+  const [isValidUser, setisValidUser] = useState(true)
+  const [isValidPassword, setisValidPassword] = useState(true)
 
-async function postData(url = '', data = {}) {
-  // Opciones por defecto estan marcadas con un *
-  const response = await fetch(url, {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': bearer,
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    redirect: 'follow', // manual, *follow, error
-    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(data) // body data type must match "Content-Type" header
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
-}
 
-  const onSubmit = async() =>{
-      
-    postData(url, {email: (email), password: (password)
-    })
-    .then(data => {
-      setData(data);
-      console.log(data); 
-    })
+  async function postData(url = '', data = {}) {
 
-    if (data.token)
-    {
-      console.log(data.token); 
-      console.log(data.user.email); 
-      
-      navigation.navigate('Home', {name: 'Login'})
-    } 
+    const response = await fetch(url, {
+      method: 'POST', 
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache',
+      credentials: 'same-origin', 
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      redirect: 'follow', 
+      referrerPolicy: 'no-referrer', 
+      body: JSON.stringify(data) 
+    });
+    
+    return response.json(); 
   }
 
-  return (
 
-    <View style={styles.mainContainer}>
-      <View style={styles.container}>
-        <Text style={styles.titulo} >BancoXYZ</Text>
-        <Text style={styles.subTitle} >Ingrese a su cuenta.!</Text>
+  useEffect(() =>{
 
-        <TextInput onChangeText={(value) => setEmail(value)} style={styles.textInput}  placeholder="name@email.com" />
-        <TextInput onChangeText={(value) => setPassword(value)} style={styles.textInput}  placeholder="Password"  secureTextEntry={true} />
+  }, []);
 
-        {
-          data.message?          
-          <View> 
-            <Text style={styles.subTitle} >Error:  {data.message}</Text>
-          </View>
-          : null
+    const textInputChange = (val) => {
+      setEmail(val);
+
+        if( val.trim().length >= 4 ) {
+          setcheck_textInputChange(true);
+          setisValidUser(true);
+          
+        } else {
+          setcheck_textInputChange(false);
+          setisValidUser(false);
         }
-        <Pressable onPress={onSubmit} style={styles.buttons} >
-          <Text style={styles.buttonsText} >Ingresar</Text>
-        </Pressable>     
+    }
 
-        <Text style={styles.forgotpassword} > No tengo una cuenta?.</Text>
-        <StatusBar style="auto" />        
+    const handlePasswordChange = (val) => {
+      setPassword(val);
+
+        if( val.trim().length >= 4 ) {
+          setisValidPassword(true);
+        } else {
+          setisValidPassword(false);
+        }
+    }
+
+    const updateSecureTextEntry = () => {
+      setsecureTextEntry(!secureTextEntry)
+    }
+
+    const login_onPress = async(email, password) =>{
+        
+      // Alert.alert('Entrada incorrecta!','Email ' + userName +  'Val Email ' + dataVal.email, [{text: 'Aceptar'}]);
+      // Alert.alert('Entrada incorrecta!','password ' + password + 'Val password ' + dataVal.password, [{text: 'Aceptar'}]);
+
+        if ( email.length == 0 || password.length == 0 ) {
+            Alert.alert('Entrada incorrecta!', 'Email y clave no deben estar vacias.', [
+                {text: 'Aceptar'}
+            ]);
+            return;
+        }
+
+        if ( email.length == 0 ) {
+            Alert.alert('Usuario no válido!', 'Email o clave incorrecta.', [
+                {text: 'Aceptar'}
+            ]);
+            return;
+        }
+
+      //console.log('1 token ' + data.token); 
+      //console.log('1 message ' + data.message);       
+      // console.log('checkService '); 
+      // console.log('email ' + dataVal.email); 
+      // console.log('password ' + dataVal.password); 
+      
+      setDataSrv([]);
+
+      postData(url, {email: (email), password: (password)})
+              .then(data => {
+                  setDataSrv(data);
+                  console.log(data); 
+                })
+
+      // postData(dataVal.email, dataVal.password)
+      //       .then(data => {
+      //               setDataSrv(data);
+      //             });
+      
+      console.log('message ' + dataSrv.message); 
+
+       if (!dataSrv.message)
+       {
+            if (dataSrv.token) 
+                await AsyncStorage.setItem('token',dataSrv.token)          
+            if (email) 
+                await AsyncStorage.setItem('email',email)      
+      
+          console.log('token ' + dataSrv.token); 
+          console.log('email ' + dataSrv.user.email); 
+          console.log('message ' + dataSrv.message); 
+
+          console.log('Login Ok'); 
+          navigation.navigate('Home', {name: 'Login'})
+      }else{
+        console.log('Login Failed'); 
+
+      }
+
+
+    }
+
+
+
+    return (
+      <View style={styles.container}>
+          <StatusBar backgroundColor='#0F4761' barStyle="light-content"/>
+  
+        <View style={styles.header}>
+            <Text style={styles.text_header} >BancoXYZ</Text>
+            <Text style={styles.SubTitulo}>Bienvenido</Text>
+        </View>
+        <Animatable.View 
+            animation="fadeInUpBig"
+            style={[styles.footer, {
+                //backgroundColor: '#009387'
+            }]}
+        >
+            <Text style={[styles.text_footer, {
+                color: '#0F4761'
+            }]}>Email</Text>
+            <View style={styles.action}>
+                <FontAwesome 
+                    name="user-o"
+                    color= "#0F4761"
+                    size={20}
+                />
+                <TextInput 
+                    placeholder="Ingrese su email"
+                    placeholderTextColor="#666666"
+                    style={[styles.textInput, {
+                        color: '#0F4761'
+                    }]}
+                    autoCapitalize="none"
+                    onChangeText={(val) => { setEmail(val); textInputChange(val)}}
+                    //onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                />
+                {check_textInputChange ? 
+                <Animatable.View
+                    animation="bounceIn"
+                >
+                    <Feather 
+                        name="check-circle"
+                        color="green"
+                        size={20}
+                    />
+                </Animatable.View>
+                : null}
+            </View>
+            { isValidUser ? null : 
+            <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>Email debe tener mas de 4 carácteres.</Text>
+            </Animatable.View>
+            }
+            
+
+            <Text style={[styles.text_footer, {
+                color: '#0F4761',
+                marginTop: 35
+            }]}>Contraseña</Text>
+            <View style={styles.action}>
+                <Feather 
+                    name="lock"
+                    color= "black"
+                    size={20}
+                />
+                <TextInput 
+                    placeholder="Ingrese su contraseña"
+                    placeholderTextColor="#666666"
+                    secureTextEntry={secureTextEntry ? true : false}
+                    style={[styles.textInput, {
+                        color: '#0F4761'
+                    }]}
+                    autoCapitalize="none"
+                    onChangeText={(val) => { setPassword(val); handlePasswordChange(val)}}/>
+                <TouchableOpacity
+                    onPress={updateSecureTextEntry}
+                >
+                    {secureTextEntry ? 
+                    <Feather 
+                        name="eye-off"
+                        color="grey"
+                        size={20}
+                    />
+                    :
+                    <Feather 
+                        name="eye"
+                        color="grey"
+                        size={20}
+                    />
+                    }
+                </TouchableOpacity>
+            </View>
+            { isValidPassword ? null : 
+            <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>Password debe tener al menos 4 carácteres.</Text>
+            </Animatable.View>
+            }
+            
+
+            <TouchableOpacity>
+                <Text style={{color: '#0F4761', marginTop:15}}>Olvido su clave?</Text>
+            </TouchableOpacity>
+
+
+
+            {
+              dataSrv.message?          
+              <View> 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                    <Text style={styles.errorMsg} > {dataSrv.message}</Text>
+                </Animatable.View>
+              </View>
+              : null
+            }
+
+            <View style={styles.button}>
+                <TouchableOpacity
+                    onPress={() => {login_onPress(email, password )}}
+                    style={[styles.signIn, {borderColor: '#0F4761',borderWidth: 1,marginTop: 15}]}>
+                    {/* <LinearGradient
+                        colors={['#f1f1f1', '#f1f1f1']}
+                        style={styles.signIn}
+                    > */}
+                        <Text style={[styles.textSign, { color: '#0F4761'}]}>Ingresar</Text>
+                    {/* </LinearGradient> */}
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Registrarse')}
+                    style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+                   
+                   <Text style={[styles.textSign, { color: '#0F4761'}]}>Registrarse</Text>
+                </TouchableOpacity>
+            </View>
+        </Animatable.View>
+        <StatusBar style="auto" />
       </View>
-    </View>
-  );
+    );
+};
 
-}
+export default Login;
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    paddingTop: 100,
-    flex: 1,
-    backgroundColor: '#f1f1f1',
-  },
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1, 
+    backgroundColor: '#0F4761'
   },
-  containerSVG: {
-    width: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    
+  header: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      paddingHorizontal: 20,
+      paddingBottom: 50
   },
-  titulo:{
-    fontSize: 40,
-    color: '#0F4761',
-    fontWeight: 'bold',
+  footer: {
+      flex: 3,
+      backgroundColor: '#f1f1f1',
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
+      paddingHorizontal: 20,
+      paddingVertical: 30
   },
-  subTitle: {
-    fontSize: 20,
-    color: 'gray',      
+  text_header: {
+      color: '#f1f1f1',
+      fontWeight: 'bold',
+      fontSize: 30
   },
-    textInput: {    
-      padding: 10,
-      paddingStart: 30,
-      width: '80%',
+  SubTitulo: {
+      color: '#f1f1f1',
+      fontWeight: 'light',// 'bold',
+      fontSize: 16
+  },
+  text_footer: {
+      color: '#0F4761',
+      fontSize: 18
+  },
+  action: {
+      flexDirection: 'row',
+      marginTop: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: '#0F4761',
+      paddingBottom: 5
+  },
+  actionError: {
+      flexDirection: 'row',
+      marginTop: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: '#FF0000',
+      paddingBottom: 5
+  },
+  textInput: {
+      flex: 1,
+      //marginTop:  -12,
+      paddingLeft: 10,
+      color: '#05375a',
+  },
+  errorMsg: {
+      color: '#FF0000',
+      fontSize: 14,
+  },
+  button: {
+      alignItems: 'center',
+      marginTop: 50
+  },
+  signIn: {
+      width: '100%',
       height: 50,
-      marginTop: 20,
-      borderRadius: 30,
-      backgroundColor: '#fff',
-
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 10
   },
-  forgotpassword: {
-    fontSize: 14,
-    color: 'gray', 
-    marginTop: 60,     
-  },
-  buttons: {
-    
-    marginTop: 20,
-    width: '40%',
-    height: 40,      
-    borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    color : '#f1f1f1',
-    backgroundColor: '#0F4761',
-  },
-  buttonsText: {
-    fontSize: 14,
-    height: 20,   
-    color : '#f1f1f1',
-  },
+  textSign: {
+      fontSize: 18,
+      fontWeight: 'bold'
+  }
 });
+

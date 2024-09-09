@@ -1,67 +1,120 @@
 import React from 'react'
+import { useState, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+//import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator }  from '@react-navigation/stack';
+//import { createBottomTabNavigator }  from '@react-navigation/bottom-tabs';
+import Icon from "react-native-vector-icons/Ionicons";
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// SCREENS
 import LogOut from './screen/LogOut';
 import Login from './screen/Login';
 import Home from './screen/Home';
 import TransferenciasLista from './screen/Transferencias';
 import Transferir from './screen/Transferir';
+import Registrarse from './screen/Registrarse';
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
-import Icon from "react-native-vector-icons/Ionicons";
+
 
 export default function App() {
 
-  const TabNav = createBottomTabNavigator();
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [userToken, setUserToken] = useState('')
+
+  const [isLoggedIn, setIsLoggedIn] = useState('')
+
+  const Stack = createStackNavigator();
+
+  //const Stack = createBottomTabNavigator();
+
+   useEffect(() => {
+    setTimeout(async() => {
+      // setIsLoading(false);
+      let uToken;
+      uToken = null;
+      try {
+        uToken = await AsyncStorage.getItem('token');
+        setUserToken(uToken);
+        setIsLoggedIn(false);
+      } catch(e) {
+        console.log(e);
+      }
+      // console.log('user token: ', token);
+    }, 1000);
+  }, []);
+
+  
+
+
+  if( isLoading ) {
+    return(
+      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+        <ActivityIndicator size="large"/>
+      </View>
+    );
+  }
   return (
     <NavigationContainer>
-        <TabNav.Navigator        
-          screenOptions={{        
-          tabBarActiveTintColor: "#0163d2",        
-          tabBarInactiveTintColor: "black",        
-          tabBarLabelStyle: {        
-            fontSize: 14,        
-            paddingBottom: 5,          
-            fontWeight: 600,
-          },
-          
-        }}
-        >
-        
-        {/* https://oblador.github.io/react-native-vector-icons/#Ionicons */}
-        <TabNav.Screen name="Login" component={Login}
-            options={{
-                tabBarIcon:({focused}) =>(
-                  <Icon name='log-in' size={24} color={focused? '#0163d2' : 'black' } />
-                ) 
-            }} /> 
-        <TabNav.Screen name="Home" component={Home} 
-            options={{
+        <Stack.Navigator      
+            initialRouteName="Login"
+            screenOptions={{
+            headerMode: 'screen',
+            headerTintColor: '#0F4761',//'white',
+            headerStyle: { backgroundColor: 'white' },
+          }}>
+   {/* {isLoggedIn ? ( 
+    // Screens for logged in users */}
+    <Stack.Group>
+            <Stack.Screen name="Home" component={Home} 
+              options={{
+                headerShown: true,
                 tabBarIcon:({focused}) =>(
                   <Icon name='home' size={24} color={focused? '#0163d2' : '#0F4761' } />
                 ) 
-            }}
-        />       
-        <TabNav.Screen name="Transferir" component={Transferir} 
-            options={{
-                tabBarIcon:({focused}) =>(
-                  <Icon name='arrow-redo-sharp' size={24} color={focused? '#0163d2' : '#0F4761' } />
-                ) 
+            }}/>       
+            <Stack.Screen name="Transferir" component={Transferir} 
+              options={{
+                headerShown: true,
+                  tabBarIcon:({focused}) =>(
+                    <Icon name='arrow-redo-sharp' size={24} color={focused? '#0163d2' : '#0F4761' } />
+                  ) 
             }}/>  
-        <TabNav.Screen name="Transferencias" component={TransferenciasLista} 
-            options={{
-                tabBarIcon:({focused}) =>(
-                  <Icon name='list' size={24} color={focused? '#0163d2' : '#0F4761' } />
-                ) 
+            <Stack.Screen name="Transferencias" component={TransferenciasLista} 
+              options={{
+                headerShown: true,
+                  tabBarIcon:({focused}) =>(
+                    <Icon name='list' size={24} color={focused? '#0163d2' : '#0F4761' } />
+                  ) 
             }}/>  
-            <TabNav.Screen name="LogOut" component={LogOut} 
-                options={{
-                    tabBarIcon:({focused}) =>(
-                      <Icon name='log-out' size={24} color={focused? '#0163d2' : '#0F4761' } />
-                    ) 
-                }}/> 
-        
-      </TabNav.Navigator>
+    </Stack.Group>
+  {/* //  ) : ( 
+  //           // Auth screens */}
+            <Stack.Group screenOptions={{ headerShown: false }}>
+
+            <Stack.Screen name="LogOut" component={LogOut} 
+              options={{
+                headerShown: true,
+                  tabBarIcon:({focused}) =>(
+                    <Icon name='log-out' size={24} color={focused? '#0163d2' : '#0F4761' } />
+                ) 
+              }}/> 
+            <Stack.Screen name="Login" component={Login}
+              options={{
+                headerShown: false
+                }} /> 
+            <Stack.Screen name="Registrarse" component={Registrarse}
+              options={{
+                headerShown: false
+                }} /> 
+
+          </Stack.Group>
+{/* 
+        //  )}  */}
+
+      </Stack.Navigator>
     </NavigationContainer>
 
   );

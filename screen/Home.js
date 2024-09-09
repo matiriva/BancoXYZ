@@ -1,67 +1,85 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Pressable, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Home(){
 
-  const url = "https://2k0ic4z7s5.execute-api.us-east-1.amazonaws.com/default/balance"
+
+export default function Home({ navigation }) {
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [email, setEmail] = useState('');
+  const [token, setToken] = useState('');
+  const [balance, setBalance] = useState([]);
+
+  const url = "https://2k0ic4z7s5.execute-api.us-east-1.amazonaws.com/default/balance";
+
+  
 
   useEffect(() =>{
-    getData(url)
-    .then(data => {
-      console.log(data); 
-    })
+      getUser();
+      getData().then(data => { setBalance(data);});
+      setIsLoading(false);
+    }, []);
+
+    if (isLoading) {
+      return   (
+              <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <ActivityIndicator size="large"/>
+              </View>)
+    }
+
+  async function getUser() {
+    try {
+          AsyncStorage.getItem('email').then (value => {if (value != null){ setEmail(value);}})
+          AsyncStorage.getItem('token').then (value => {if (value != null){ setToken(value);}})
+
+          console.log(email);
+          console.log(token);
+        } catch (error) {
+            console.log(error);
+        }
   }
-)
-  const loginData = {
-    email: 'wilson@topaz.com',
-    //password: "3333"
-  };  
   
+  async function getData() {
 
-  const [balance, setBalance] = useState([]);
-  const bearer = 'Bearer fake-jwt-token';
-
-  async function getData(url = '') {
-  
-    // setEmail(loginData.email)
-    // setPassword(loginData.password)
-    // Opciones por defecto estan marcadas con un *
     const response = await fetch(url, {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      method: 'GET',
       mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
+      cache: 'no-cache',
+      credentials: 'same-origin', 
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': bearer,
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Bearer ${token}`,
       },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      //body: JSON.stringify(data) // body data type must match "Content-Type" header
+      redirect: 'follow', 
+      referrerPolicy: 'no-referrer', 
     });
-    return response.json(); // parses JSON response into native JavaScript objects
+
+    const json = await response.json();
+
+   return json;
   }
 
-  const onSubmit = async() =>{
 
-    // setEmail(loginData.email)
-    // setPassword(loginData.password)
+  
+
+  const onSubmit = async() =>{
 
     getData(url)
     .then(data => {
       setBalance(data)
-      console.log(data); 
+      //console.log(data); 
     })
 }
 
 return (
   <View style={styles.mainContainer}>
+    
     <View style={styles.container}>
          <StatusBar style="auto" /> 
-          <Text style={styles.subTitle} > Bienvenido {loginData.email} !</Text>
+          <Text style={styles.subTitle} > Bienvenido {email} !</Text>
 
                   {
           balance?
@@ -73,25 +91,58 @@ return (
           : null
 
         }
-         <Pressable onPress={onSubmit} style={styles.buttons} >
-          <Text style={styles.buttonsText} >Refrescar </Text>
-        </Pressable> 
+        <TouchableOpacity
+            onPress={onSubmit} 
+            style={[styles.buttons, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={styles.buttonsText}>Refrescar</Text>
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+            style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={[styles.textSign, { color: '#0F4761'}]}>Home</Text>
+        </TouchableOpacity> */}
+
+
+
     </View>  
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Transferir')}
+            style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={[styles.textSign, { color: '#0F4761'}]}>Transferir</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('Transferencias')}
+            style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={[styles.textSign, { color: '#0F4761'}]}>Transferencias</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('LogOut')}
+            style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={[styles.textSign, { color: '#0F4761'}]}>Salir</Text>
+        </TouchableOpacity>
   </View>
-  );
+  )
+
 }
 
 const styles = StyleSheet.create({
   mainContainer: {
-    paddingTop: 40,
+    //paddingTop: 40,
     width: '100%',
     flex: 1,
     backgroundColor: '#f1f1f1',
   },
   container: {
-    paddingTop: 100,
+    //paddingTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
+    height: 400
   },
   titulo:{
     fontSize: 20,
@@ -133,4 +184,19 @@ const styles = StyleSheet.create({
     height: 20,   
     color : '#f1f1f1',
   },
+  button: {
+      alignItems: 'center',
+      marginTop: 50
+  },
+  signIn: {
+      width: '100%',
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 10
+  },
+  textSign: {
+      fontSize: 18,
+      fontWeight: 'bold'
+  }
 });
