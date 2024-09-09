@@ -62,7 +62,7 @@ return (
             <View style={styles.table}>
                     {Transfers.map((transfer) => {
                         return (
-                        <View key={index} style={{ flexDirection: 'row' }} >
+                        <View key={transfer.payeer.document} style={{ flexDirection: 'row' }} >
                             <Text style={styles.item}>{transfer.value} | </Text>  
                             <Text style={styles.item}>{transfer.date}  | </Text>
                             <Text style={styles.item}>{transfer.currency}  | </Text>

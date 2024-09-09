@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Pressable, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Home({ prop }) {
+
+
+export default function Home({ navigation }) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [email, setEmail] = useState('');
@@ -74,6 +76,7 @@ export default function Home({ prop }) {
 
 return (
   <View style={styles.mainContainer}>
+    
     <View style={styles.container}>
          <StatusBar style="auto" /> 
           <Text style={styles.subTitle} > Bienvenido {email} !</Text>
@@ -88,10 +91,41 @@ return (
           : null
 
         }
-         <Pressable onPress={onSubmit} style={styles.buttons} >
-          <Text style={styles.buttonsText} >Refrescar </Text>
-        </Pressable> 
+        <TouchableOpacity
+            onPress={onSubmit} 
+            style={[styles.buttons, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={styles.buttonsText}>Refrescar</Text>
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+            style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={[styles.textSign, { color: '#0F4761'}]}>Home</Text>
+        </TouchableOpacity> */}
+
+
+
     </View>  
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Transferir')}
+            style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={[styles.textSign, { color: '#0F4761'}]}>Transferir</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('Transferencias')}
+            style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={[styles.textSign, { color: '#0F4761'}]}>Transferencias</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('LogOut')}
+            style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
+            
+            <Text style={[styles.textSign, { color: '#0F4761'}]}>Salir</Text>
+        </TouchableOpacity>
   </View>
   )
 
@@ -99,15 +133,16 @@ return (
 
 const styles = StyleSheet.create({
   mainContainer: {
-    paddingTop: 40,
+    //paddingTop: 40,
     width: '100%',
     flex: 1,
     backgroundColor: '#f1f1f1',
   },
   container: {
-    paddingTop: 100,
+    //paddingTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
+    height: 400
   },
   titulo:{
     fontSize: 20,
@@ -149,4 +184,19 @@ const styles = StyleSheet.create({
     height: 20,   
     color : '#f1f1f1',
   },
+  button: {
+      alignItems: 'center',
+      marginTop: 50
+  },
+  signIn: {
+      width: '100%',
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 10
+  },
+  textSign: {
+      fontSize: 18,
+      fontWeight: 'bold'
+  }
 });

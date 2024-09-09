@@ -13,7 +13,7 @@ import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {LinearGradient} from 'expo-linear-gradient';
+//import {LinearGradient} from 'expo-linear-gradient';
 
 const url = "https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login"
 
