@@ -76,7 +76,7 @@ const Registrarse = ({navigation}) => {
       <View style={styles.container}>
           <StatusBar backgroundColor='#009387' barStyle="light-content"/>
         <View style={styles.header}>
-            <Text style={styles.text_header}>Registrate ahora..</Text>
+            <Text style={styles.text_header}>Registrate y da de alta tu cuenta ahora..</Text>
         </View>
         <Animatable.View 
             animation="fadeInUpBig"
