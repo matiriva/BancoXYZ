@@ -148,7 +148,7 @@ const Login = ({navigation}) => {
   
         <View style={styles.header}>
             <Text style={styles.text_header} >BancoXYZ</Text>
-            <Text style={styles.SubTitulo}>Bienvenido!</Text>
+            <Text style={styles.SubTitulo}>Bienvenido</Text>
         </View>
         <Animatable.View 
             animation="fadeInUpBig"
