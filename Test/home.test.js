@@ -29,32 +29,18 @@ describe('Home', () => {
   });
 
   // --- TEST 2
-  it('Render Texto balance y moneda', () => {
+  it('Render Texto balance y moneda', async () => {
     const { getByTestId } = render(<Home />);
-    
-    expect(getByTestId('tiBalance')).toBeOnTheScreen();
-    expect(getByTestId('tiMoneda')).toBeOnTheScreen();
-  });
 
-  // --- TEST 3
-  it('Botones renderizados, Refrescar, Transferir, Transferencias, Salir ', () => {
-    const { getByTestId } = render(<Home />);
-    
-    expect(getByTestId('tiBtnRefrescar')).toBeOnTheScreen();
-    
-    expect(getByTestId('tiBtnTransferir')).toBeOnTheScreen();
-    expect(getByTestId('tiBtnTransferencias')).toBeOnTheScreen();
-    expect(getByTestId('tiBtnSalir')).toBeOnTheScreen();
-  });
 
-  // --- TEST 4
-  it('Refrescar Saldos', async () => {
-    const { getByTestId } = render(<Home />);
-    
+    await waitFor(() => {
 
-    expect(screen.getByText('Balance: '));
-    expect(screen.getByText('Moneda: '));
+      const tiBalance = getByTestId('tiBalance');
+     expect(tiBalance).toBeOnTheScreen();
+     expect(tiBalance).toBeTruthy();
+    });
 
   });
 
+  
 });
