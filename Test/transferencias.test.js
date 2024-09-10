@@ -19,11 +19,26 @@ describe('Transferencias', () => {
     jest.clearAllMocks();
   });
 
-  it('Render página Transferencias  ', () => {
+
+
+  // --- TEST 1
+  it('Render página Transferencias', async () => {
     const { getByTestId } = render(<Transferencias />);
-    
-    expect(getByTestId('tiFilter')).toBeTruthy();
-   
+
+  });
+
+  // --- TEST 1
+  it('Render página Transferencias', async () => {
+    const { getByTestId } = render(<Transferencias />);
+
+
+    await waitFor(() => {
+
+      const tiFilter = getByTestId('tiFilter');
+     expect(tiFilter).toBeOnTheScreen();
+     expect(tiFilter).toBeTruthy();
+     });
+
   });
 
 });
