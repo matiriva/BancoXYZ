@@ -71,19 +71,19 @@ useEffect(() => {
     }
   }
 
-  const onSubmit = async () => {
-    // fetchData(url).then((data) => {
+  // const onSubmit = async () => {
+  //   // fetchData(url).then((data) => {
 
-    //   // if(filtro)
-    //   // {
-    //   //   setTransfers(data.transfers);
-    //   // }
-    //   // else
-    //     //setTransfers(data.transfers);
+  //   //   // if(filtro)
+  //   //   // {
+  //   //   //   setTransfers(data.transfers);
+  //   //   // }
+  //   //   // else
+  //   //     //setTransfers(data.transfers);
 
-    //   console.log(data);
-    // });
-  };
+  //   //   console.log(data);
+  //   // });
+  // };
 
 
   const textInputChange = (query) => {
@@ -149,9 +149,9 @@ useEffect(() => {
 
                />    
             
-            <Pressable     testID='tionSubmit' onPress={onSubmit} style={styles.buttons}>
+            {/* <Pressable     testID='tionSubmit' onPress={onSubmit} style={styles.buttons}>
               <Text style={styles.buttonsText}>Ver </Text>
-            </Pressable>
+            </Pressable> */}
             </View>
             <View>
               {Transfers.map((transfer) => {
