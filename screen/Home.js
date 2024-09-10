@@ -93,7 +93,7 @@ return (
         }
 
         <Pressable  testID='tiBtnRefrescar'  onPress={onSubmit} style={styles.buttons} >
-                  <Text style={styles.buttonsText} >Refrescar </Text>
+                  <Text  testID='tiTxtRefrescar'  style={styles.buttonsText} >Refrescar </Text>
         </Pressable> 
         {/* <TouchableOpacity  testID='tiBtnRefrescar' 
             onPress={onSubmit} 

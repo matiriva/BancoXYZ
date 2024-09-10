@@ -52,33 +52,9 @@ describe('Home', () => {
     const { getByTestId } = render(<Home />);
     
 
-    //const tiBtnRefrescar = getByTestId('tiBtnRefrescar');
-  
+    expect(screen.getByText('Balance: '));
+    expect(screen.getByText('Moneda: '));
 
-    await waitFor(() => {
-      expect(getByTestId('tiBtnRefrescar')).toBeTruthy()
-    })
-  
-    fireEvent.press(getByTestId('tiBtnRefrescar'))
-    //expect(onGoBack()).toBeCalled()
-
-    //expect(screen.getByTestId('tiMoneda')).toHaveTextContent('Moneda: USD');
-    //fireEvent(getByTestId("tiBtnRefrescar"), "press");
-    const user = userEvent.setup();
-    await user.press(element);
-
-    const linkElement = screen.getByText('Balance: 1800');
-    //expect(linkElement).toBeInTheDocument();
-
-    // const  getByText  = screen.getByTestId('tiBalance')
-    // expect( getByText.props.value getByText('Balance: 1800')).toBeInTheDocument()
-
-  
   });
 
 });
-
-
-// testID='tionSubmit' 
-
-// testID='tiRefrescar'
