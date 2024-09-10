@@ -4,18 +4,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
   TextInput,
-  FlatList,
-  TouchableWithoutFeedback,
   Animated,
-  Box,
   ActivityIndicator,
 } from "react-native";
 import { useState } from "react";
-import { Ellipse } from "react-native-svg";
 import { filter } from "lodash";
-
 
 export default function TransferenciasLista() {
   const url =
@@ -32,9 +26,6 @@ export default function TransferenciasLista() {
 useEffect(() => {
     setIsLoading(true);
     fetchData(url);
-    // .then((data) => {
-    //   console.log(data);
-    // });
   },[]);
 
   const bearer = "Bearer fake-jwt-token";
@@ -110,7 +101,7 @@ useEffect(() => {
     <View style={styles.mainContainer}>
       <View style={styles.container}>
         <StatusBar style="auto" />
-        <Text style={styles.subTitle}> Lista de Transferencias</Text>
+        <Text style={styles.subTitle}> Lista de Movimientos</Text>
 
         {Transfers ? (
           <View style={{width: "90%", 
@@ -235,7 +226,6 @@ const styles = StyleSheet.create({
     borderColor: "#0F4761",
   },
   item: {
-    //padding: 10,
     paddingStart: 10,
     fontSize: 14,
   },
