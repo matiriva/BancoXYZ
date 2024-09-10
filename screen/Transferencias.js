@@ -84,8 +84,7 @@ export default function TransferenciasLista() {
                           alignItems: "center",
                           height: 50,
                           width: "96%",
-                        }}
-                      >
+                        }}>
                         <Animated.View
                           style={{
                             justifyContent: "space-between",
