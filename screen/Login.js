@@ -59,7 +59,7 @@ const Login = ({navigation}) => {
     const textInputChange = (val) => {
       setEmail(val);
 
-        if( val.trim().length >= 4 ) {
+        if(val.trim().length < 1 || val.trim().length >= 4) {
           setcheck_textInputChange(true);
           setisValidUser(true);
           
@@ -154,40 +154,19 @@ const Login = ({navigation}) => {
             <Text style={styles.text_header} >BancoXYZ</Text>
             <Text style={styles.SubTitulo}>Bienvenido</Text>
         </View>
-        <Animatable.View 
-            animation="fadeInUpBig"
-            style={[styles.footer, {
-                //backgroundColor: '#009387'
-            }]}
-        >
-            <Text style={[styles.text_footer, {
-                color: '#0F4761'
-            }]}>Email</Text>
+        
+        <Animatable.View animation="fadeInUpBig" style={[styles.footer, { /* backgroundColor: '#009387' */ }]}>
+            <Text style={[styles.text_footer, {color: '#0F4761'}]}>Email</Text>
             <View style={styles.action}>
-                <FontAwesome 
-                    name="user-o"
-                    color= "#0F4761"
-                    size={20}
-                />
-                <TextInput  testID='tiEmail'
-                    placeholder="Ingrese su email"
-                    placeholderTextColor="#666666"
-                    style={[styles.textInput, {
-                        color: '#0F4761'
-                    }]}
-                    autoCapitalize="none"
-                    onChangeText={(val) => { setEmail(val); textInputChange(val)}}
-                    //onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-                />
+                <FontAwesome name="user-o" color= "#0F4761" size={20} />
+
+                <TextInput placeholder="Ingrese su email" placeholderTextColor="#666666" style={[styles.textInput, { color: '#0F4761'}]}
+                    autoCapitalize="none" inputMode="email" onChangeText={(val) => { setEmail; textInputChange(val)}}
+                    //onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}  
+                    testID='tiEmail'/>
                 {check_textInputChange ? 
-                <Animatable.View
-                    animation="bounceIn"
-                >
-                    <Feather 
-                        name="check-circle"
-                        color="green"
-                        size={20}
-                    />
+                <Animatable.View animation="bounceIn">
+                    <Feather name="check-circle"color="green"size={20}/>
                 </Animatable.View>
                 : null}
             </View>
@@ -216,7 +195,7 @@ const Login = ({navigation}) => {
                         color: '#0F4761'
                     }]}
                     autoCapitalize="none"
-                    onChangeText={(val) => { setPassword(val); handlePasswordChange(val)}}/>
+                    onChangeText={(val) => { setPassword; handlePasswordChange(val)}}/>
                 <TouchableOpacity
                     onPress={updateSecureTextEntry}
                 >
@@ -259,7 +238,7 @@ const Login = ({navigation}) => {
             }
 
             <View style={styles.button}>
-                <TouchableOpacity
+                <TouchableOpacity  testID='tibtnIngresar'
                     onPress={() => {login_onPress()}}
                     style={[styles.signIn, {borderColor: '#0F4761',borderWidth: 1,marginTop: 15}]}>
                     {/* <LinearGradient
@@ -270,7 +249,7 @@ const Login = ({navigation}) => {
                     {/* </LinearGradient> */}
                 </TouchableOpacity>
 
-                <TouchableOpacity
+                <TouchableOpacity testID='tibtnRegistrarse'
                     onPress={() => navigation.navigate('Registrarse')}
                     style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
                    

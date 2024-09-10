@@ -19,6 +19,8 @@ describe('Home', () => {
     jest.clearAllMocks();
   });
 
+  
+  // --- TEST 1
   it('Render página Home  ', () => {
     const { getByTestId } = render(<Home />);
     
