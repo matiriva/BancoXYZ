@@ -15,31 +15,29 @@ export default function TransferenciasLista() {
   const url =
     "https://n0qaa2fx3c.execute-api.us-east-1.amazonaws.com/default/transferList";
 
-  
-
   const [isLoading, setIsLoading] = useState(false);
   const [Transfers, setTransfers] = useState([]);
   const [error, setError] = useState(null);
   const [fullData, setFullData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-useEffect(() => {
+  useEffect(() => {
     setIsLoading(true);
     fetchData(url);
-  },[]);
+  }, []);
 
   const bearer = "Bearer fake-jwt-token";
 
-   const fetchData = async(url) => {
-    try{
+  const fetchData = async (url) => {
+    try {
       const response = await fetch(url, {
-        method: "GET", 
+        method: "GET",
         headers: {
-            "Content-Type": "application/json",
-            Authorization: bearer,          
-          }        
+          "Content-Type": "application/json",
+          Authorization: bearer,
+        },
       });
-      
+
       const json = await response.json();
 
       setTransfers(json.transfers);
@@ -47,14 +45,12 @@ useEffect(() => {
       setIsLoading(false);
 
       console.log(json.transfers);
-    }
-    catch(error)
-    {   
+    } catch (error) {
       setError(error);
       console.log(error);
       setIsLoading(false);
     }
-  }
+  };
 
   const textInputChange = (query) => {
     setSearchQuery(query);
@@ -65,37 +61,36 @@ useEffect(() => {
     });
     setTransfers(filteredData);
   };
-  
-  const contains = ({payeer, date}, query) => {
-   const {document, name, value} = payeer; 
-   //const value = payeer; 
-    if(document.includes(query)
-      || name.toLowerCase().includes(query)
-      || date.includes(query)
-      //|| value.toString().includes(query)  
-    )
-    {
+
+  const contains = ({ payeer, date }, query) => {
+    const { document, name, value } = payeer;
+    //const value = payeer;
+    if (
+      document.includes(query) ||
+      name.toLowerCase().includes(query) ||
+      date.includes(query)
+      //|| value.toString().includes(query)
+    ) {
       return true;
-    }
-    else
-    {      
+    } else {
       return false;
     }
-  }
-
+  };
 
   if (isLoading) {
-    return   (
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-              <ActivityIndicator size="large"/>
-            </View>)
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
 
   if (error) {
-    return   (
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-              <Text>Error in fecth data.. Please check your internet connectión</Text>
-            </View>)
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Error in fecth data.. Please check your internet connectión</Text>
+      </View>
+    );
   }
   return (
     <View style={styles.mainContainer}>
@@ -104,20 +99,33 @@ useEffect(() => {
         <Text style={styles.subTitle}> Lista de Movimientos</Text>
 
         {Transfers ? (
-          <View style={{width: "90%", 
-            justifyContent: "center",
-            alignItems: "center" }}>
-
-            <View style={{ width: "90%" , 
-                          justifyContent: "center",
-                          alignItems: "center",marginBottom: 20 }} >
-              <TextInput  testID="tiFilter" onChangeText={(query) => { textInputChange(query);}} style={styles.textInputFilter}  
-              placeholder="BUSCAR"
-              clearButtonMode="always"
-              autoCapitalize="none"
-              autoCorrect={false}
-              value={searchQuery}/>    
-            
+          <View
+            style={{
+              width: "90%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                width: "90%",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: 20,
+              }}
+            >
+              <TextInput
+                testID="tiFilter"
+                onChangeText={(query) => {
+                  textInputChange(query);
+                }}
+                style={styles.textInputFilter}
+                placeholder="BUSCAR"
+                clearButtonMode="always"
+                autoCapitalize="none"
+                autoCorrect={false}
+                value={searchQuery}
+              />
             </View>
             <View>
               {Transfers.map((transfer) => {
@@ -132,14 +140,13 @@ useEffect(() => {
                           alignItems: "center",
                           height: 50,
                           width: "96%",
-                        }}>
+                        }}
+                      >
                         <Animated.View
                           style={{
                             justifyContent: "space-between",
                             flexDirection: "row",
-                            //height: 20,
                             width: "100%",
-                            //padding: 2,
                             paddingLeft: 10,
                           }}
                         >
@@ -170,7 +177,6 @@ useEffect(() => {
                           style={{
                             justifyContent: "space-between",
                             flexDirection: "row",
-                            //height: 50,
                             width: "100%",
                             padding: 2,
                             paddingBottom: 6,
@@ -216,7 +222,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   table: {
-    padding:10,
+    padding: 10,
     alignItems: "flex-start",
     borderStyle: "solid",
     borderBottomWidth: 4,

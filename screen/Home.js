@@ -18,7 +18,8 @@ export default function Home({ navigation }) {
   const [balance, setBalance] = useState([]);
   const [error, setError] = useState(null);
 
-  const url ="https://2k0ic4z7s5.execute-api.us-east-1.amazonaws.com/default/balance";
+  const url =
+    "https://2k0ic4z7s5.execute-api.us-east-1.amazonaws.com/default/balance";
 
   useEffect(() => {
     setIsLoading(true);
@@ -53,7 +54,7 @@ export default function Home({ navigation }) {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-        }
+        },
       });
 
       const json = await response.json();
@@ -78,7 +79,9 @@ export default function Home({ navigation }) {
   if (error) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Error al obtener datos.. Por favor, revise su conexión a internet. </Text>
+        <Text>
+          Error al obtener datos.. Por favor, revise su conexión a internet.{" "}
+        </Text>
 
         <TouchableOpacity
           testID="tiBtnSalir"
@@ -111,77 +114,85 @@ export default function Home({ navigation }) {
         </View>
 
         {balance ? (
-        <TouchableOpacity
-          testID="tiBtnTransferencias"
-          onPress={() => navigation.navigate("Transferencias")}
+          <TouchableOpacity
+            testID="tiBtnTransferencias"
+            onPress={() => navigation.navigate("Transferencias")}
           >
-          <View style={styles.table}>
-            <View style={{ flexDirection: "column" }}>
-              <View
-                style={{
-                  paddingTop: 10,
-                  justifyContent: "space-between",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  height: 100,
-                  width: "96%",
-                }}
-              >
-                <Animated.View
+            <View style={styles.table}>
+              <View style={{ flexDirection: "column" }}>
+                <View
                   style={{
+                    paddingTop: 10,
                     justifyContent: "space-between",
-                    flexDirection: "row",
-                    width: "100%",
-                    paddingLeft: 10,
+                    flexDirection: "column",
+                    alignItems: "center",
+                    height: 100,
+                    width: "96%",
                   }}
                 >
-                  <Animated.Text style={styles.SaldoDisponble}>
-                    SALDO DISPONIBLE:
-                  </Animated.Text>
-                  <Animated.Text testID='tiBalance'
+                  <Animated.View
                     style={{
-                      fontSize: 18,
-                      textAlign: "right",
-                      color: balance.accountBalance > 0 ? "#0F4761" : "#FF4500",
-                      fontWeight: "bold",
+                      justifyContent: "space-between",
+                      flexDirection: "row",
+                      width: "100%",
+                      paddingLeft: 10,
                     }}
                   >
-                    {balance.accountBalance > 0
-                      ? ` ${balance.accountBalance} `
-                      : `-  ${Math.abs(balance.accountBalance)} `}{" "}
-                    {balance.currency}
-                  </Animated.Text>
-                </Animated.View>
-                <Animated.View
-                  style={{
-                    justifyContent: "space-between",
-                    flexDirection: "row",
-                    width: "100%",
-                    padding: 2,
-                    paddingBottom: 6,
-                    paddingLeft: 16,
-                  }}>
-                  <Animated.Text
+                    <Animated.Text style={styles.SaldoDisponble}>
+                      SALDO DISPONIBLE:
+                    </Animated.Text>
+                    <Animated.Text
+                      testID="tiBalance"
+                      style={{
+                        fontSize: 18,
+                        textAlign: "right",
+                        color:
+                          balance.accountBalance > 0 ? "#0F4761" : "#FF4500",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {balance.accountBalance > 0
+                        ? ` ${balance.accountBalance} `
+                        : `-  ${Math.abs(balance.accountBalance)} `}{" "}
+                      {balance.currency}
+                    </Animated.Text>
+                  </Animated.View>
+                  <Animated.View
                     style={{
-                      flexDirection: "column",
-                      fontSize: 14,
-                      textAlign: "left",
-                      color: "grey",
-                    }}>
-                      <Text style={[styles.textSign, { color: "#0F4761" }]}>                        
+                      justifyContent: "space-between",
+                      flexDirection: "row",
+                      width: "100%",
+                      padding: 2,
+                      paddingBottom: 6,
+                      paddingLeft: 16,
+                    }}
+                  >
+                    <Animated.Text
+                      style={{
+                        flexDirection: "column",
+                        fontSize: 14,
+                        textAlign: "left",
+                        color: "grey",
+                      }}
+                    >
+                      <Text style={[styles.textSign, { color: "#0F4761" }]}>
                         Ver Transferencias
                       </Text>
-                  </Animated.Text>
-                  <Animated.Text></Animated.Text>
-                </Animated.View>
+                    </Animated.Text>
+                    <Animated.Text></Animated.Text>
+                  </Animated.View>
+                </View>
               </View>
             </View>
-          </View>
-        </TouchableOpacity>
-        ) : null }
-
+          </TouchableOpacity>
+        ) : null}
       </View>
-      <View style={[styles.container, { paddingTop: 50, alignItems: "center",  width: "96%" }]}>
+      <View
+        style={[
+          styles.container,
+          { paddingTop: 50, alignItems: "center", width: "96%" },
+        ]}
+      >
         <TouchableOpacity
           testID="tiBtnTransferir"
           onPress={() => navigation.navigate("Transferir")}
@@ -214,7 +225,8 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     width: "100%",
     flex: 1,
-    backgroundColor: "#f1f1f1",alignItems: "center",
+    backgroundColor: "#f1f1f1",
+    alignItems: "center",
   },
   container: {
     paddingTop: 10,
@@ -251,7 +263,6 @@ const styles = StyleSheet.create({
     borderColor: "#0F4761",
   },
   item: {
-    //padding: 10,
     paddingStart: 10,
     fontSize: 14,
   },
