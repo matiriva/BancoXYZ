@@ -85,18 +85,22 @@ return (
           balance?
           
           <View testID='ViewTest' style={{ marginTop: 40 }}> 
-            <Text testID='tiBalance' style={styles.subTitle} >Balance:  {balance.accountBalance}</Text>
-            <Text testID='tiMoneda' style={styles.subTitle} >Moneda:  {balance.currency}</Text>
+            <Text testID='tiBalance' style={styles.subTitle} >Balance: {balance.accountBalance}</Text>
+            <Text testID='tiMoneda' style={styles.subTitle} >Moneda: {balance.currency}</Text>
           </View>
           : null
 
         }
-        <TouchableOpacity  testID='tionSubmit' 
+
+        <Pressable  testID='tiBtnRefrescar'  onPress={onSubmit} style={styles.buttons} >
+                  <Text style={styles.buttonsText} >Refrescar </Text>
+        </Pressable> 
+        {/* <TouchableOpacity  testID='tiBtnRefrescar' 
             onPress={onSubmit} 
             style={[styles.buttons, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
             
-            <Text testID='tiRefrescar' style={styles.buttonsText}>Refrescar</Text>
-        </TouchableOpacity>
+            <Text testID='tiTxtRefrescar' style={styles.buttonsText}>Refrescar</Text>
+        </TouchableOpacity> */}
 
         {/* <TouchableOpacity
             onPress={() => navigation.navigate('Home')}
@@ -109,19 +113,19 @@ return (
 
     </View>  
     <View style={styles.container}>
-          <TouchableOpacity
+          <TouchableOpacity testID='tiBtnTransferir' 
             onPress={() => navigation.navigate('Transferir')}
             style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
             
             <Text style={[styles.textSign, { color: '#0F4761'}]}>Transferir</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        <TouchableOpacity testID='tiBtnTransferencias' 
             onPress={() => navigation.navigate('Transferencias')}
             style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
             
             <Text style={[styles.textSign, { color: '#0F4761'}]}>Transferencias</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        <TouchableOpacity testID='tiBtnSalir' 
             onPress={() => navigation.navigate('LogOut')}
             style={[styles.signIn, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
             
