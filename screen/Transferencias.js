@@ -62,20 +62,15 @@ export default function TransferenciasLista() {
         <Text style={styles.subTitle}> Lista de Transferencias</Text>
 
         {Transfers ? (
-          <View style={{ marginTop: 10 }}>
-            <TextInput
-              placeholder="BUSCAR"
-              placeholderTextColor="#666666"
-              style={[styles.textInputFilter, { color: "#0F4761" }]}
-              autoCapitalize="none"
-              onChangeText={(val) => {
-                setFiltro;
-                textInputChange(val);
-              }}
-              //onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
-              testID="tiFilter"
-            />
+          <View style={{width: "90%", 
+            justifyContent: "center",
+            alignItems: "center" }}>
 
+            <View style={{ width: "90%" , 
+                          justifyContent: "center",
+                          alignItems: "center",marginBottom: 20 }} >
+              <TextInput  testID="tiFilter" onChangeText={(value) => { setFiltro; textInputChange(value);}} style={styles.textInput}  placeholder="BUSCAR" />    
+            </View>
             <View>
               {Transfers.map((transfer) => {
                 return (
@@ -174,6 +169,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     alignItems: "center",
     justifyContent: "center",
+    width: "100%",
   },
   table: {
     alignItems: "flex-start",
@@ -206,6 +202,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 30,
     backgroundColor: "#fff",
+    width: "100%",
   },
   buttons: {
     marginTop: 40,
