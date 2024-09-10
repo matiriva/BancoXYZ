@@ -14,6 +14,8 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { Ellipse } from "react-native-svg";
+import { filter } from "lodash";
+
 
 export default function TransferenciasLista() {
   const url =
@@ -57,6 +59,8 @@ useEffect(() => {
       setTransfers(json.transfers);
       console.log(json.transfers);
 
+      setFullData(json.transfers);
+
       setIsLoading(false);
     }
     catch(error)
@@ -68,24 +72,46 @@ useEffect(() => {
   }
 
   const onSubmit = async () => {
-    fetchData(url).then((data) => {
+    // fetchData(url).then((data) => {
 
-      // if(filtro)
-      // {
-      //   setTransfers(data.transfers);
-      // }
-      // else
-        //setTransfers(data.transfers);
+    //   // if(filtro)
+    //   // {
+    //   //   setTransfers(data.transfers);
+    //   // }
+    //   // else
+    //     //setTransfers(data.transfers);
 
-      console.log(data);
-    });
+    //   console.log(data);
+    // });
   };
 
 
   const textInputChange = (query) => {
     setSearchQuery(query);
+
+    const formattedQuery = query.toLowerCase();
+    const filteredData = filter(fullData, (user) => {
+      return contains(user, formattedQuery);
+    });
+    setTransfers(filteredData);
   };
   
+  const contains = ({payeer, date}, query) => {
+   const {document, name} = payeer; 
+    if(document.includes(query) || 
+      //payeer.value.includes(query) || 
+      name.includes(query) || 
+      date.includes(query))
+    {
+      return true;
+    }
+    else
+    {      
+      return false;
+    }
+  }
+
+
   if (isLoading) {
     return   (
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
