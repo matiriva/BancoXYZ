@@ -29,7 +29,3 @@ describe('Transferir', () => {
 
 });
 
-
-// testID='tionSubmit' 
-
-// testID='tiRefrescar'

@@ -10,51 +10,95 @@ import {
   TouchableWithoutFeedback,
   Animated,
   Box,
+  ActivityIndicator,
 } from "react-native";
 import { useState } from "react";
+import { Ellipse } from "react-native-svg";
 
 export default function TransferenciasLista() {
   const url =
     "https://n0qaa2fx3c.execute-api.us-east-1.amazonaws.com/default/transferList";
 
-  useEffect(() => {
-    getData(url).then((data) => {
+  
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [Transfers, setTransfers] = useState([]);
+  const [error, setError] = useState(null);
+  const [fullData, setFullData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+useEffect(() => {
+    setIsLoading(true);
+    fetchData(url)
+    .then((data) => {
       console.log(data);
     });
-  });
+  },[]);
 
-  const [Transfers, setTransfers] = useState([]);
-  const [filtro, setFiltro] = useState([]);
   const bearer = "Bearer fake-jwt-token";
 
-  async function getData(url = "") {
-    // Opciones por defecto estan marcadas con un *
-    const response = await fetch(url, {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: bearer,
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      //body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
+   const fetchData = async(url) => {
+    try{
+      //const response = await fetch(url); 
+      
+      const response = await fetch(url, {
+        method: "GET", 
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: bearer,          
+        }        
+      });
+      //return response.json(); // parses JSON response into native JavaScript objects
+    
+      
+      const json = await response.json();
+
+
+      setTransfers(json.transfers);
+      console.log(json.transfers);
+
+      setIsLoading(false);
+    }
+    catch(error)
+    {   
+      setError(error);
+      console.log(error);
+      setIsLoading(false);
+    }
   }
 
   const onSubmit = async () => {
-    getData(url).then((data) => {
-      setTransfers(data.transfers);
+    fetchData(url).then((data) => {
+
+      // if(filtro)
+      // {
+      //   setTransfers(data.transfers);
+      // }
+      // else
+        //setTransfers(data.transfers);
 
       console.log(data);
     });
   };
-  const textInputChange = (val) => {};
 
+
+  const textInputChange = (query) => {
+    setSearchQuery(query);
+  };
+  
+  if (isLoading) {
+    return   (
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+              <ActivityIndicator size="large"/>
+            </View>)
+  }
+
+  if (error) {
+    return   (
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+              <Text>Error in fecth data.. Please check your internet connectión</Text>
+            </View>)
+  }
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
@@ -69,7 +113,18 @@ export default function TransferenciasLista() {
             <View style={{ width: "90%" , 
                           justifyContent: "center",
                           alignItems: "center",marginBottom: 20 }} >
-              <TextInput  testID="tiFilter" onChangeText={(value) => { setFiltro; textInputChange(value);}} style={styles.textInput}  placeholder="BUSCAR" />    
+              <TextInput  testID="tiFilter" onChangeText={(query) => { textInputChange(query);}} style={styles.textInputFilter}  
+              placeholder="BUSCAR"
+              clearButtonMode="always"
+              autoCapitalize="none"
+              autoCorrect={false}
+              value={searchQuery}
+
+               />    
+            
+            <Pressable     testID='tionSubmit' onPress={onSubmit} style={styles.buttons}>
+              <Text style={styles.buttonsText}>Ver </Text>
+            </Pressable>
             </View>
             <View>
               {Transfers.map((transfer) => {
@@ -149,9 +204,6 @@ export default function TransferenciasLista() {
             </View>
           </View>
         ) : null}
-        <Pressable     testID='tionSubmit' onPress={onSubmit} style={styles.buttons}>
-          <Text style={styles.buttonsText}>Refrescar </Text>
-        </Pressable>
       </View>
     </View>
   );
@@ -171,6 +223,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   table: {
+    padding:10,
     alignItems: "flex-start",
     borderStyle: "solid",
     borderBottomWidth: 4,
@@ -219,11 +272,14 @@ const styles = StyleSheet.create({
     color: "#f1f1f1",
   },
   textInputFilter: {
-    fontSize: 14,
+    padding: 10,
+    paddingStart: 30,
+    width: "80%",
     height: 50,
-    //flex: 1,
-    //marginTop:  -12,
-    paddingLeft: 10,
-    color: "#05375a",
+    marginTop: 20,
+    borderRadius: 8,
+    borderColor: "#ccc",
+    backgroundColor: "#fff",
+    width: "100%",
   },
 });
