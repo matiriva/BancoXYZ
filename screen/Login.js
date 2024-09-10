@@ -125,12 +125,15 @@ const Login = ({navigation}) => {
 
        if (!dataSrv.message)
        {
-            if (dataSrv.token) 
-                await AsyncStorage.setItem('token',dataSrv.token)          
+        
+            AsyncStorage.clear();
+            
+            if (token) 
+                await AsyncStorage.setItem('token',token)          
             if (email) 
                 await AsyncStorage.setItem('email',email)      
       
-          console.log('token ' + dataSrv.token); 
+          console.log('token ' + token); 
           console.log('email ' + email); 
           console.log('message ' + dataSrv.message); 
 

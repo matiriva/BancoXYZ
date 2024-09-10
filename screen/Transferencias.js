@@ -41,14 +41,12 @@ useEffect(() => {
 
    const fetchData = async(url) => {
     try{
-      //const response = await fetch(url); 
-      
       const response = await fetch(url, {
         method: "GET", 
         headers: {
-          "Content-Type": "application/json",
-          Authorization: bearer,          
-        }        
+            "Content-Type": "application/json",
+            Authorization: bearer,          
+          }        
       });
       
       const json = await response.json();
