@@ -111,6 +111,10 @@ export default function Home({ navigation }) {
         </View>
 
         {balance ? (
+        <TouchableOpacity
+          testID="tiBtnTransferencias"
+          onPress={() => navigation.navigate("Transferencias")}
+          >
           <View style={styles.table}>
             <View style={{ flexDirection: "column" }}>
               <View
@@ -167,19 +171,16 @@ export default function Home({ navigation }) {
                       textAlign: "left",
                       color: "grey",
                     }}>
-                    <TouchableOpacity
-                      testID="tiBtnTransferencias"
-                      onPress={() => navigation.navigate("Transferencias")}>
                       <Text style={[styles.textSign, { color: "#0F4761" }]}>                        
                         Ver Transferencias
                       </Text>
-                    </TouchableOpacity>
                   </Animated.Text>
                   <Animated.Text></Animated.Text>
                 </Animated.View>
               </View>
             </View>
           </View>
+        </TouchableOpacity>
         ) : null }
 
       </View>
