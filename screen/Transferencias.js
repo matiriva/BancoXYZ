@@ -58,8 +58,7 @@ export default function TransferenciasLista() {
     const formattedQuery = query.toLowerCase();
     const filteredData = filter(fullData, (json) => {
           return contains(
-            json.payeer.name,
-            json.payeer.document,
+            json.payeer,
             json.date,
             json.value, 
             formattedQuery);
@@ -68,15 +67,16 @@ export default function TransferenciasLista() {
         setTransfers(filteredData);
   };
 
-  const contains = ( name, document, date, value, query) => {
+  const contains = ( payeer, date, value, query) => {
+    const {name, document} = payeer
 
-    num = `${value}` // convierto nro to string
+    num = `${value}` // convierto número to string
 
     if (
-      document.includes(query) ||
-      name.toLowerCase().includes(query) ||
-      date.includes(query)
-      || num.includes(query)
+        document.includes(query) 
+        || name.toLowerCase().includes(query) 
+        || date.includes(query)
+        || num.includes(query)
     ) {
       return true;
     } else {
