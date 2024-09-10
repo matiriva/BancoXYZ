@@ -183,7 +183,7 @@ export default function Home({ navigation }) {
         ) : null }
 
       </View>
-      <View style={[styles.container, { paddingTop: 50 }]}>
+      <View style={[styles.container, { paddingTop: 50, alignItems: "center",  width: "96%" }]}>
         <TouchableOpacity
           testID="tiBtnTransferir"
           onPress={() => navigation.navigate("Transferir")}
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     width: "100%",
     flex: 1,
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#f1f1f1",alignItems: "center",
   },
   container: {
     paddingTop: 10,
