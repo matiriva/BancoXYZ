@@ -17,9 +17,9 @@ return (
         <View style={styles.container}>
         <StatusBar style="auto" />
        
-        <Text style={styles.texto}>Presione salir para cerrar sessión !!</Text>
+        <Text  testID='tiTxtSalirMsg' style={styles.texto}>Presione salir para cerrar sessión !!</Text>
 
-        <Pressable onPress={logout} style={styles.buttons} >
+        <Pressable  testID='tiBtnSalir' onPress={logout} style={styles.buttons} >
           <Text style={styles.buttonsText} >Salir</Text>
         </Pressable>   
 
