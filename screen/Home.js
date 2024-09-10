@@ -78,7 +78,7 @@ export default function Home({ navigation }) {
   if (error) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Error in fecth data.. Please check your internet connectión</Text>
+        <Text>Error al obtener datos.. Por favor, revise su conexión a internet. </Text>
 
         <TouchableOpacity
           testID="tiBtnSalir"
@@ -131,9 +131,7 @@ export default function Home({ navigation }) {
                   style={{
                     justifyContent: "space-between",
                     flexDirection: "row",
-                    //height: 20,
                     width: "100%",
-                    //padding: 2,
                     paddingLeft: 10,
                   }}
                 >
@@ -158,7 +156,6 @@ export default function Home({ navigation }) {
                   style={{
                     justifyContent: "space-between",
                     flexDirection: "row",
-                    //height: 50,
                     width: "100%",
                     padding: 2,
                     paddingBottom: 6,
