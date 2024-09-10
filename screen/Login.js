@@ -7,7 +7,6 @@ import {
     StyleSheet ,
     StatusBar,
     Alert,
-    Pressable
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -24,7 +23,6 @@ const Login = ({navigation}) => {
   const [password, setPassword] = useState('')
   const [token, setToken] = useState('fake-jwt-token')
   const [dataSrv, setDataSrv] = useState([]);
-
  
   const [check_textInputChange, setcheck_textInputChange] = useState(false)
   const [secureTextEntry, setsecureTextEntry] = useState(true)
@@ -36,7 +34,7 @@ const Login = ({navigation}) => {
 
     const response = await fetch(url, {
       method: 'POST', 
-      mode: 'cors', // no-cors, *cors, same-origin
+      mode: 'cors', 
       cache: 'no-cache',
       credentials: 'same-origin', 
       headers: {
@@ -50,7 +48,6 @@ const Login = ({navigation}) => {
     
     return response.json(); 
   }
-
 
   useEffect(() =>{
 
@@ -85,16 +82,12 @@ const Login = ({navigation}) => {
 
     const login_onPress = async() =>{
         
-      // Alert.alert('Entrada incorrecta!','Email ' + userName +  'Val Email ' + dataVal.email, [{text: 'Aceptar'}]);
-      // Alert.alert('Entrada incorrecta!','password ' + password + 'Val password ' + dataVal.password, [{text: 'Aceptar'}]);
-
         if ( email.length == 0 || password.length == 0 ) {
             Alert.alert('Entrada incorrecta!', 'Email y clave no deben estar vacias.', [
                 {text: 'Aceptar'}
             ]);
             return;
         }
-
         if ( email.length == 0 ) {
             Alert.alert('Usuario no válido!', 'Email o clave incorrecta.', [
                 {text: 'Aceptar'}
@@ -102,32 +95,16 @@ const Login = ({navigation}) => {
             return;
         }
 
-      //console.log('1 token ' + data.token); 
-      //console.log('1 message ' + data.message);       
-      // console.log('checkService '); 
-      // console.log('email ' + dataVal.email); 
-      // console.log('password ' + dataVal.password); 
-      
-      setDataSrv([]);
-
       postData(url, {email: (email), password: (password)})
               .then(data => {
                   setDataSrv(data);
                   console.log(data); 
                 })
 
-      // postData(dataVal.email, dataVal.password)
-      //       .then(data => {
-      //               setDataSrv(data);
-      //             });
-      
-      console.log('message ' + dataSrv.message); 
-
        if (!dataSrv.message)
        {
-        
             AsyncStorage.clear();
-            
+
             if (token) 
                 await AsyncStorage.setItem('token',token)          
             if (email) 
@@ -136,18 +113,14 @@ const Login = ({navigation}) => {
           console.log('token ' + token); 
           console.log('email ' + email); 
           console.log('message ' + dataSrv.message); 
-
           console.log('Login Ok'); 
+
           navigation.navigate('Home', {name: 'Login'})
       }else{
         console.log('Login Failed'); 
         return;
       }
-
-
     }
-
-
 
     return (
       <View style={styles.container}>
@@ -222,13 +195,10 @@ const Login = ({navigation}) => {
             <Text style={styles.errorMsg}>Password debe tener al menos 4 carácteres.</Text>
             </Animatable.View>
             }
-            
 
             <TouchableOpacity>
                 <Text style={{color: '#0F4761', marginTop:15}}>Olvido su clave?</Text>
             </TouchableOpacity>
-
-
 
             {
               dataSrv.message?          
@@ -244,12 +214,7 @@ const Login = ({navigation}) => {
                 <TouchableOpacity  testID='tibtnIngresar'
                     onPress={() => {login_onPress()}}
                     style={[styles.signIn, {borderColor: '#0F4761',borderWidth: 1,marginTop: 15}]}>
-                    {/* <LinearGradient
-                        colors={['#f1f1f1', '#f1f1f1']}
-                        style={styles.signIn}
-                    > */}
                         <Text style={[styles.textSign, { color: '#0F4761'}]}>Ingresar</Text>
-                    {/* </LinearGradient> */}
                 </TouchableOpacity>
 
                 <TouchableOpacity testID='tibtnRegistrarse'
@@ -293,7 +258,7 @@ const styles = StyleSheet.create({
   },
   SubTitulo: {
       color: '#f1f1f1',
-      fontWeight: 'light',// 'bold',
+      fontWeight: 'light',
       fontSize: 16
   },
   text_footer: {

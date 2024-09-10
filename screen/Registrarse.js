@@ -74,7 +74,7 @@ const Registrarse = ({navigation}) => {
 
     return (
       <View style={styles.container}>
-          <StatusBar backgroundColor='#009387' barStyle="light-content"/>
+          <StatusBar backgroundColor='#0F4761' barStyle="light-content"/>
         <View style={styles.header}>
             <Text style={styles.text_header}>Registrate y da de alta tu cuenta ahora..</Text>
         </View>
@@ -192,7 +192,7 @@ const Registrarse = ({navigation}) => {
                     onPress={() => {}}
                 >
                 <LinearGradient
-                    colors={['#08d4c4', '#01ab9d']}
+                    colors={['#0F4761', '#0F4761']}
                     style={styles.signIn}
                 >
                     <Text style={[styles.textSign, {
@@ -204,13 +204,13 @@ const Registrarse = ({navigation}) => {
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
                     style={[styles.signIn, {
-                        borderColor: '#009387',
+                        borderColor: '#0F4761',
                         borderWidth: 1,
                         marginTop: 15
                     }]}
                 >
                     <Text style={[styles.textSign, {
-                        color: '#009387'
+                        color: '#0F4761'
                     }]}>Iniciar Sessión</Text>
                 </TouchableOpacity>
             </View>
@@ -225,7 +225,7 @@ export default Registrarse;
 const styles = StyleSheet.create({
     container: {
       flex: 1, 
-      backgroundColor: '#009387'
+      backgroundColor: '#0F4761'
     },
     header: {
         flex: 1,
