@@ -56,10 +56,9 @@ export default Transferir = ({ navigation }) => {
         <StatusBar style="auto" />
         <Text style={styles.titulo}> Transferir a la cuenta:</Text>
 
+      <View  style={styles.table} >
 
       <Text style={styles.subTitle}>Número Documento:</Text>
-
-      <View style={ width= "100%"}>
       <View style={styles.container}>
         <TextInput
           testID="tiNroDoc"
@@ -96,13 +95,6 @@ export default Transferir = ({ navigation }) => {
           placeholder="USD/ARS/REAL"
         />
       </View>
-      </View>
-      {data.message ? (
-        <View>
-          <Text style={styles.subTitle}> {data.message}</Text>
-        </View>
-      ) : null}
-
       <View style={styles.container}>
         <Pressable
           testID="tionSubmit"
@@ -113,6 +105,13 @@ export default Transferir = ({ navigation }) => {
         </Pressable>
       </View>
 
+      </View>
+      {data.message ? (
+        <View style={{ padding:20 }}>
+          <Text style={styles.subTitle}> {data.message}</Text>
+        </View>
+      ) : null}
+
       <StatusBar style="auto" />
     </View>
   );
@@ -120,9 +119,12 @@ export default Transferir = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    paddingTop: 10,
-    flex: 1,
+    paddingTop: 20,
+    //flex: 1,
     backgroundColor: "#f1f1f1",
+    alignItems: "center",
+    justifyContent: "center",
+
   },
   container: {
     alignItems: "center",
@@ -141,6 +143,19 @@ const styles = StyleSheet.create({
     color: "gray",
     alignItems: "flex-start",
     justifyContent: "flex-start",
+  },
+  table: {
+    width: "90%",
+    height: 500,
+    padding: 10,
+    marginTop: 20,
+    borderStyle: "solid",
+    borderBottomWidth: 4,
+    borderTopWidth: 1,
+    borderStartWidth: 1,
+    borderEndWidth: 1,
+    borderRadius: 8,
+    borderColor: "#0F4761",
   },
   textInput: {
     alignItems: "center",

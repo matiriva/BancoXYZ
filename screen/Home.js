@@ -50,11 +50,16 @@ export default function Home({ navigation }) {
   async function fetchData() {
     try {
       const response = await fetch(url, {
-        method: "GET",
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",        
       });
 
       const json = await response.json();
