@@ -6,24 +6,24 @@ import { __getMockPush, __mockReset } from 'expo-router';
 import AsyncStorage, { __resetAllMocks, __getMockStorage } from '../mocks/async-storage'
 
 // SCREENS
-import Home from '../screen/Home';
+import Transferencias from '../screen/Transferencias';
 
 // CONST
 
 // -----------------------------------------------------
 
-describe('Home', () => {
+describe('Transferencias', () => {
   beforeEach(() => {
     //__mockReset();
     __resetAllMocks();
     jest.clearAllMocks();
   });
 
-  it('Render página Home  ', () => {
-    const { getByTestId } = render(<Home />);
+  it('Render página Transferencias  ', () => {
+    const { getByTestId } = render(<Transferencias />);
     
-    expect(getByTestId('tiBalance')).toBeTruthy();
-    expect(getByTestId('tiMoneda')).toBeTruthy();
+    expect(getByTestId('tiFilter')).toBeTruthy();
+    expect(getByTestId('tionSubmit')).toBeTruthy();
   });
 
 });

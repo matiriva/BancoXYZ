@@ -155,7 +155,7 @@ export default function TransferenciasLista() {
             </View>
           </View>
         ) : null}
-        <Pressable onPress={onSubmit} style={styles.buttons}>
+        <Pressable     testID='tionSubmit' onPress={onSubmit} style={styles.buttons}>
           <Text style={styles.buttonsText}>Refrescar </Text>
         </Pressable>
       </View>

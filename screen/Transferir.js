@@ -59,11 +59,11 @@ async function postData(url = '', data = {}) {
         <Text style={styles.subTitle} >Ingrese Alias o CBU:</Text>
 
       <View style={styles.container}>
-        <TextInput onChangeText={(value) => setCBU(value)} style={styles.textInput}  placeholder="Alias/CBU" />    
+        <TextInput    testID='tiCBU' onChangeText={(value) => setCBU(value)} style={styles.textInput}  placeholder="Alias/CBU" />    
       </View>
         <Text style={styles.subTitle} >Ingrese Valor a transferir:</Text>
       <View style={styles.container}>
-        <TextInput onChangeText={(value) => setValor(value)} style={styles.textInput}  placeholder="Valor"  />  
+        <TextInput     testID='tiValor' onChangeText={(value) => setValor(value)} style={styles.textInput}  placeholder="Valor"  />  
       </View>
 
         {
@@ -75,7 +75,7 @@ async function postData(url = '', data = {}) {
         }
 
       <View style={styles.container}>
-        <Pressable onPress={onSubmit} style={styles.buttons} >
+        <Pressable  testID='tionSubmit'  onPress={onSubmit} style={styles.buttons} >
           <Text style={styles.buttonsText} >Transferir</Text>
         </Pressable>    
       </View> 
