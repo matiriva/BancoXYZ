@@ -56,20 +56,27 @@ export default function TransferenciasLista() {
     setSearchQuery(query);
 
     const formattedQuery = query.toLowerCase();
-    const filteredData = filter(fullData, (user) => {
-      return contains(user, formattedQuery);
-    });
-    setTransfers(filteredData);
+    const filteredData = filter(fullData, (json) => {
+          return contains(
+            json.payeer.name,
+            json.payeer.document,
+            json.date,
+            json.value, 
+            formattedQuery);
+          });
+    
+        setTransfers(filteredData);
   };
 
-  const contains = ({ payeer, date }, query) => {
-    const { document, name, value } = payeer;
-    //const value = payeer;
+  const contains = ( name, document, date, value, query) => {
+
+    num = `${value}` // convierto nro to string
+
     if (
       document.includes(query) ||
       name.toLowerCase().includes(query) ||
       date.includes(query)
-      //|| value.toString().includes(query)
+      || num.includes(query)
     ) {
       return true;
     } else {
