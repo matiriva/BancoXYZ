@@ -71,21 +71,6 @@ useEffect(() => {
     }
   }
 
-  // const onSubmit = async () => {
-  //   // fetchData(url).then((data) => {
-
-  //   //   // if(filtro)
-  //   //   // {
-  //   //   //   setTransfers(data.transfers);
-  //   //   // }
-  //   //   // else
-  //   //     //setTransfers(data.transfers);
-
-  //   //   console.log(data);
-  //   // });
-  // };
-
-
   const textInputChange = (query) => {
     setSearchQuery(query);
 
@@ -149,9 +134,6 @@ useEffect(() => {
 
                />    
             
-            {/* <Pressable     testID='tionSubmit' onPress={onSubmit} style={styles.buttons}>
-              <Text style={styles.buttonsText}>Ver </Text>
-            </Pressable> */}
             </View>
             <View>
               {Transfers.map((transfer) => {

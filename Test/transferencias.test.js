@@ -23,12 +23,7 @@ describe('Transferencias', () => {
     const { getByTestId } = render(<Transferencias />);
     
     expect(getByTestId('tiFilter')).toBeTruthy();
-    expect(getByTestId('tionSubmit')).toBeTruthy();
+   
   });
 
 });
-
-
-// testID='tionSubmit' 
-
-// testID='tiRefrescar'
