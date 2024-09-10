@@ -96,12 +96,13 @@ useEffect(() => {
     setTransfers(filteredData);
   };
   
-  const contains = ({payeer, date}, query) => {
-   const {document, name, value} = payeer; 
-    if(document.includes(query) || 
-      //(value).includes(query) || 
-      name.toLowerCase().includes(query) || 
-      date.includes(query))
+  const contains = ({payeer, date, value}, query) => {
+   const {document, name} = payeer; 
+    if(document.includes(query)
+      || name.toLowerCase().includes(query)
+      || date.includes(query)
+     //|| {value}.includes(query)  
+    )
     {
       return true;
     }
