@@ -108,7 +108,7 @@ export default Transferir = ({ navigation }) => {
       </View>
       {data.message ? (
         <View style={{ padding:20 }}>
-          <Text style={styles.subTitle}> {data.message}</Text>
+          <Text style={styles.message}> {data.message}</Text>
         </View>
       ) : null}
 
@@ -182,6 +182,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     color: "#f1f1f1",
     backgroundColor: "#0F4761",
+  },
+  errorMsg: {
+    color: "#FF0000",
+    fontSize: 14,
   },
   buttonsText: {
     fontSize: 14,
