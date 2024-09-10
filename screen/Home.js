@@ -92,15 +92,15 @@ return (
 
         }
 
-        <Pressable  testID='tiBtnRefrescar'  onPress={onSubmit} style={styles.buttons} >
+        {/* <Pressable  testID='tiBtnRefrescar'  onPress={onSubmit} style={styles.buttons} >
                   <Text  testID='tiTxtRefrescar'  style={styles.buttonsText} >Refrescar </Text>
-        </Pressable> 
-        {/* <TouchableOpacity  testID='tiBtnRefrescar' 
+        </Pressable>  */}
+         <TouchableOpacity  testID='tiBtnRefrescar' 
             onPress={onSubmit} 
             style={[styles.buttons, { borderColor: '#0F4761', borderWidth: 1, marginTop: 15 }]}>
             
             <Text testID='tiTxtRefrescar' style={styles.buttonsText}>Refrescar</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity> 
 
         {/* <TouchableOpacity
             onPress={() => navigation.navigate('Home')}
