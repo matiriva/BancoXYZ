@@ -115,7 +115,7 @@ export default function Home({ navigation }) {
             marginBottom: 20,
           }}
         >
-          <Text style={styles.subTitle}> Hola, {email}!,</Text>
+          <Text style={styles.subTitle}> Hola {email}!</Text>
         </View>
 
         {balance ? (
