@@ -31,10 +31,10 @@ export default function TransferenciasLista() {
 
 useEffect(() => {
     setIsLoading(true);
-    fetchData(url)
-    .then((data) => {
-      console.log(data);
-    });
+    fetchData(url);
+    // .then((data) => {
+    //   console.log(data);
+    // });
   },[]);
 
   const bearer = "Bearer fake-jwt-token";
@@ -50,18 +50,14 @@ useEffect(() => {
           Authorization: bearer,          
         }        
       });
-      //return response.json(); // parses JSON response into native JavaScript objects
-    
       
       const json = await response.json();
 
-
       setTransfers(json.transfers);
-      console.log(json.transfers);
-
       setFullData(json.transfers);
-
       setIsLoading(false);
+
+      console.log(json.transfers);
     }
     catch(error)
     {   
@@ -81,12 +77,13 @@ useEffect(() => {
     setTransfers(filteredData);
   };
   
-  const contains = ({payeer, date, value}, query) => {
-   const {document, name} = payeer; 
+  const contains = ({payeer, date}, query) => {
+   const {document, name, value} = payeer; 
+   //const value = payeer; 
     if(document.includes(query)
       || name.toLowerCase().includes(query)
       || date.includes(query)
-     //|| {value}.includes(query)  
+      //|| value.toString().includes(query)  
     )
     {
       return true;
@@ -130,9 +127,7 @@ useEffect(() => {
               clearButtonMode="always"
               autoCapitalize="none"
               autoCorrect={false}
-              value={searchQuery}
-
-               />    
+              value={searchQuery}/>    
             
             </View>
             <View>
