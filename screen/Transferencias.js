@@ -97,10 +97,10 @@ useEffect(() => {
   };
   
   const contains = ({payeer, date}, query) => {
-   const {document, name} = payeer; 
+   const {document, name, value} = payeer; 
     if(document.includes(query) || 
-      //payeer.value.includes(query) || 
-      name.includes(query) || 
+      //(value).includes(query) || 
+      name.toLowerCase().includes(query) || 
       date.includes(query))
     {
       return true;
